@@ -2,13 +2,13 @@
 
 set -x
 
-DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends distcc socat
+DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends distcc socat >/dev/null
 
 # touch /var/www/html/auth/distccd_log.txt
 # chmod 666 /var/www/html/auth/distccd_log.txt
 
 # /usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=1 --log-level=debug --log-file=/var/www/html/auth/distccd_log.txt --daemon
-/usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=1 --log-level=debug --log-stderr --daemon
+/usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=1 --log-level=debug --log-stderr --daemon --stats --stats-port=3633
 
 sleep 10s
 ss -anpt

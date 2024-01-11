@@ -9,6 +9,7 @@ sleep 10s && /app/start_distccd.sh &
 
 # a2enmod authz_groupfile
 
-find / -name httpd.conf -print
+cat /usr/local/apache2/conf/httpd.conf
+ls -lang /usr/local/apache2/conf/
 
 apachectl -DFOREGROUND
