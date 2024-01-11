@@ -8,8 +8,8 @@ DISTCCD_LOG_FILE=/usr/local/apache2/htdocs/auth/distccd_log.txt
 touch ${DISTCCD_LOG_FILE}
 chmod 666 ${DISTCCD_LOG_FILE}
 
-# /usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=1 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633
-/usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=1 --log-level=debug --log-stderr --daemon --stats --stats-port=3633
+# /usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=1 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private
+/usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=1 --log-level=debug --log-stderr --daemon --stats --stats-port=3633 --allow-private
 
 sleep 10s
 ss -anpt
