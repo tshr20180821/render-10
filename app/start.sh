@@ -5,7 +5,7 @@ set -x
 curl -sSL -H 'Cache-Control: no-cache' -o /app/start_distccd.sh https://raw.githubusercontent.com/tshr20180821/render-10/main/app/start_distccd.sh?$(date +%s)
 cat -n /app/start_distccd.sh
 chmod +x /app/start_distccd.sh
-# sleep 10s && /app/start_distccd.sh &
+sleep 10s && /app/start_distccd.sh &
 
 mkdir /usr/local/apache2/htdocs/auth
 chown www-data:www-data /usr/local/apache2/htdocs/auth -R
