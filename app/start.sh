@@ -7,9 +7,14 @@ cat /app/start_distccd.sh
 chmod +x /app/start_distccd.sh
 sleep 10s && /app/start_distccd.sh &
 
-# a2enmod authz_groupfile
+mkdir /usr/local/apache2/htdocs/auth
+chown www-data:www-data /usr/local/apache2/htdocs/auth -R
+echo '<HTML />'>/usr/local/apache2/htdocs/index.html
 
-cat /usr/local/apache2/conf/httpd.conf
-ls -lang /usr/local/apache2/conf/
+htpasswd -c -b /usr/local/apache2/htdocs/.htpasswd "${BASIC_USER}" "${BASIC_PASSWORD}"
+chmod 644 /usr/local/apache2/htdocs/.htpasswd
 
-apachectl -DFOREGROUND
+curl -sSL -H 'Cache-Control: no-cache' -o /app/apache2.conf https://raw.githubusercontent.com/tshr20180821/render-10/main/app/apache2.conf?$(date +%s)
+cat /app/apache2.conf
+
+apachectl -c /app/apache2.conf -DFOREGROUND
