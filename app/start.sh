@@ -17,4 +17,4 @@ chmod 644 /usr/local/apache2/htdocs/.htpasswd
 curl -sSL -H 'Cache-Control: no-cache' -o /app/apache2.conf https://raw.githubusercontent.com/tshr20180821/render-10/main/app/apache2.conf?$(date +%s)
 cat /app/apache2.conf
 
-apachectl -c /app/apache2.conf -DFOREGROUND
+apachectl -f /app/apache2.conf -DFOREGROUND
