@@ -36,4 +36,4 @@ export PIPING_SERVER=https://piping-47q675ro2guv.runkit.sh
 
 echo -n ${PIPING_SERVER} >/usr/local/apache2/htdocs/auth/piping_server.txt
 
-socat -ddd "exec:./piping-duplex ${KEYWORD}distccd_request ${KEYWORD}distccd_response" tcp:127.0.0.1:3632 &
+socat -ddd -x "exec:./piping-duplex ${KEYWORD}distccd_request ${KEYWORD}distccd_response" tcp:127.0.0.1:3632 &
