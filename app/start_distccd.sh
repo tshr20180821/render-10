@@ -2,7 +2,12 @@
 
 set -x
 
-DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends distcc socat >/dev/null
+DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
+  build-essential \
+  distcc \
+  gcc-x86-64-linux-gnu \
+  socat \
+  >/dev/null
 
 DISTCCD_LOG_FILE=/usr/local/apache2/htdocs/auth/distccd_log.txt
 touch ${DISTCCD_LOG_FILE}
