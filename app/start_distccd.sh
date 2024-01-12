@@ -21,7 +21,7 @@ chmod 666 ${DISTCCD_LOG_FILE}
 sleep 10s
 ss -anpt
 
-curl -v http://127.0.0.1:3633/ &
+curl -v http://127.0.0.1:3633/
 
 curl -sSLO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-release-trigger2/piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
 tar xf piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
