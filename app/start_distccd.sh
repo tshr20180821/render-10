@@ -9,6 +9,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   socat \
   >/dev/null
 
+ls -lang /usr/lib/distcc >/usr/local/apache2/htdocs/auth/ls_usr_lib_distcc.txt
+
 DISTCCD_LOG_FILE=/usr/local/apache2/htdocs/auth/distccd_log.txt
 touch ${DISTCCD_LOG_FILE}
 chmod 666 ${DISTCCD_LOG_FILE}
