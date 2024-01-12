@@ -30,5 +30,8 @@ chmod +x piping-duplex
 export KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 
 echo -n ${KEYWORD} >/usr/local/apache2/htdocs/auth/keyword.txt
+# export PIPING_SERVER=https://ppng.io
+export PIPING_SERVER=https://piping.nwtgck.repl.co
+echo -n ${PIPING_SERVER} >/usr/local/apache2/htdocs/auth/piping_server.txt
 
 socat -ddd "exec:./piping-duplex ${KEYWORD}distccd_request ${KEYWORD}distccd_response" tcp:127.0.0.1:3632 &
