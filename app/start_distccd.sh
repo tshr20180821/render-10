@@ -27,7 +27,7 @@ curl -sSLO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-r
 tar xf piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
 chmod +x piping-duplex
 
-export KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
+export KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 16 | head -n 1)
 
 echo -n ${KEYWORD} >/usr/local/apache2/htdocs/auth/keyword.txt
 # export PIPING_SERVER=https://ppng.io
