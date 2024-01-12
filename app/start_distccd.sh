@@ -32,7 +32,7 @@ export KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 echo -n ${KEYWORD} >/usr/local/apache2/htdocs/auth/keyword.txt
 # export PIPING_SERVER=https://ppng.io
 # http status 308 export PIPING_SERVER=https://piping.nwtgck.repl.co
-export PIPING_SERVER=https://piping-47q675ro2guv.runkit.sh
+# export PIPING_SERVER=https://piping-47q675ro2guv.runkit.sh
 
 echo -n ${PIPING_SERVER} >/usr/local/apache2/htdocs/auth/piping_server.txt
 
