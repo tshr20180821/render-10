@@ -36,4 +36,7 @@ echo -n ${KEYWORD} >/usr/local/apache2/htdocs/auth/keyword.txt
 
 echo -n ${PIPING_SERVER} >/usr/local/apache2/htdocs/auth/piping_server.txt
 
-socat -ddd -x "exec:./piping-duplex ${KEYWORD}distccd_request ${KEYWORD}distccd_response" tcp:127.0.0.1:3632 &
+# socat -x -ddd "exec:./piping-duplex ${KEYWORD}distccd_request ${KEYWORD}distccd_response" tcp:127.0.0.1:3632 &
+socat -4 tcp-listen:9001,bind=127.0.0.1,reuseaddr,fork 'system:"stdbuf -o0 recode /b64 | socat -tcp:127.0.0.1:3632' &
+socat -v -ddd "exec:./piping-duplex ${KEYWORD}distccd_request ${KEYWORD}distccd_response" tcp:127.0.0.1:9001 &
+
