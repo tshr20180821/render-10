@@ -6,6 +6,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   build-essential \
   distcc \
   gcc-x86-64-linux-gnu \
+  recode \
   socat \
   >/dev/null
 
