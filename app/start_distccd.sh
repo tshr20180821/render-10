@@ -8,6 +8,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   gcc-x86-64-linux-gnu \
   recode \
   socat \
+  ssh \
   >/dev/null
 
 ls -lang /usr/lib/distcc >/usr/local/apache2/htdocs/auth/ls_usr_lib_distcc.txt
