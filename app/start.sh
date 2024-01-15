@@ -7,8 +7,8 @@ cat -n ./start_sshd.sh
 chmod +x ./start_sshd.sh
 sleep 10s && ./start_sshd.sh &
 
-for i in {1..10}; do sleep 60s
- && echo "${i}"
+for i in {1..10}; do sleep 60s \
+ && echo "${i}" \
  && ss -anpt \
  && ps aux \
  && curl -sS -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/;
