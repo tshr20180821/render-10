@@ -10,8 +10,7 @@ sleep 10s && ./start_sshd.sh &
 for i in {1..10}; do sleep 60s && echo "${i}"; done \
  && ss -anpt \
  && ps aux \
- && curl -sS -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
-done &
+ && curl -sS -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/ &
 
 mkdir /usr/local/apache2/htdocs/auth
 chown www-data:www-data /usr/local/apache2/htdocs/auth -R
