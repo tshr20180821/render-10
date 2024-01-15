@@ -2,7 +2,7 @@
 
 set -x
 
-DEBIAN_FRONTEND=noninteractive apt-get install -y socat ssh
+DEBIAN_FRONTEND=noninteractive apt-get -q install -y socat ssh
 
 curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-07/main/app/hpnsshd
 chmod +x ./hpnsshd
