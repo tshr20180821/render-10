@@ -2,7 +2,7 @@
 
 set -x
 
-time DEBIAN_FRONTEND=noninteractive apt-get -qq install -y socat ssh
+DEBIAN_FRONTEND=noninteractive apt-get -q install -y socat ssh
 
 curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-07/main/app/hpnsshd
 chmod +x ./hpnsshd
@@ -14,7 +14,7 @@ ssh-keygen -t rsa -N '' -f ./.ssh/ssh_host_rsa_key
 
 cat << EOF >/app/hpnsshd_config
 AddressFamily inet
-ListenAddress 0.0.0.0
+ListenAddress 127.0.0.1
 Protocol 2
 PermitRootLogin no
 PasswordAuthentication no
@@ -34,7 +34,8 @@ EOF
 useradd --system --shell /usr/sbin/nologin --home=/run/hpnsshd hpnsshd
 mkdir /var/empty
 
-/app/hpnsshd -4Dp 10022 -h /app/.ssh/ssh_host_rsa_key -f /app/hpnsshd_config &
+# /app/hpnsshd -4Dp 10022 -h /app/.ssh/ssh_host_rsa_key -f /app/hpnsshd_config &
+/app/hpnsshd -4Dep 10022 -h /app/.ssh/ssh_host_rsa_key -f /app/hpnsshd_config &
 cp ./.ssh/ssh_host_rsa_key.pub /usr/local/apache2/htdocs/auth/ssh_host_rsa_key.pub.txt
 
 curl -sSLO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-release-trigger2/piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
