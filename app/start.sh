@@ -2,6 +2,8 @@
 
 set -x
 
+ip a
+
 curl -sSL -H 'Cache-Control: no-cache' -O https://github.com/tshr20180821/render-10/raw/main/app/start_sshd.sh
 cat -n ./start_sshd.sh
 chmod +x ./start_sshd.sh
