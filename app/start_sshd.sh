@@ -51,6 +51,10 @@ echo -n ${PIPING_SERVER} >/usr/local/apache2/htdocs/auth/piping_server.txt
 
 socat -v -ddd "exec:./piping-duplex ${KEYWORD}sshd_request ${KEYWORD}sshd_response" tcp:127.0.0.1:10022 &
 
-curl -sSN https://ppng.io/${KEYWORD}res | socat TUN:192.168.254.1/24,up - | curl -sSNT - https://ppng.io/${KEYWORD}req &
+mkdir -p /dev/net
+mknod /dev/net/tun c 10 200
+chmod 600 /dev/net/tun
+
+curl -sSN https://ppng.io/${KEYWORD}res | sudo socat TUN:192.168.254.1/24,up - | curl -sSNT - https://ppng.io/${KEYWORD}req &
 
 sleep 5s && ip route
