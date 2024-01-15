@@ -7,7 +7,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y socat ssh
 curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-07/main/app/hpnsshd
 chmod +x ./hpnsshd
 
-mkdir -p ./.ssh
+mkdir ./.ssh
 chmod 700 ./.ssh
 
 ssh-keygen -t rsa -N '' -f ./.ssh/ssh_host_rsa_key
@@ -16,7 +16,7 @@ cat << EOF >/app/hpnsshd_config
 AddressFamily inet
 ListenAddress 127.0.0.1:10022
 Protocol 2
-PermitRootLogin no
+PermitRootLogin yes
 PasswordAuthentication no
 ChallengeResponseAuthentication no
 PubkeyAuthentication yes
