@@ -47,4 +47,4 @@ echo -n ${KEYWORD} >/usr/local/apache2/htdocs/auth/keyword.txt
 
 echo -n ${PIPING_SERVER} >/usr/local/apache2/htdocs/auth/piping_server.txt
 
-socat -v -ddd "exec:./piping-duplex ${KEYWORD}sshd_request ${KEYWORD}ddhd_response" tcp:127.0.0.1:10022 &
+socat -v -ddd "exec:./piping-duplex ${KEYWORD}sshd_request ${KEYWORD}sshd_response" tcp:127.0.0.1:10022 &
