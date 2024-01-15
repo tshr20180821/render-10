@@ -7,10 +7,12 @@ cat -n ./start_sshd.sh
 chmod +x ./start_sshd.sh
 sleep 10s && ./start_sshd.sh &
 
-for i in {1..10}; do sleep 60s && echo "${i}"; done \
+for i in {1..10}; do sleep 60s
+ && echo "${i}"
  && ss -anpt \
  && ps aux \
- && curl -sS -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/ &
+ && curl -sS -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/;
+done &
 
 mkdir /usr/local/apache2/htdocs/auth
 chown www-data:www-data /usr/local/apache2/htdocs/auth -R
