@@ -1,16 +1,19 @@
-FROM httpd:2.4
+FROM php:8.3-apache
 
 EXPOSE 80
 
 SHELL ["/bin/bash", "-c"]
 
-WORKDIR /app
+WORKDIR /usr/src/app
+
+COPY ./php.ini ${PHP_INI_DIR}/
 
 RUN set -x \
- && ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+ && ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
+ && docker-php-ext-install sockets
 
-COPY --chmod=755 ./app/start_pre.sh ./
+COPY --chmod=755 ./start.sh ./
 
 STOPSIGNAL SIGWINCH
 
-ENTRYPOINT ["/bin/bash","/app/start_pre.sh"]
+ENTRYPOINT ["/bin/bash","/usr/src/app/start.sh"]
