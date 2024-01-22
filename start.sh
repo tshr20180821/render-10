@@ -45,7 +45,7 @@ for i in {1..72}; do \
    && ss -anpt \
    && ps aux \
    && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
-done
+done &
 
 # distccd
 
