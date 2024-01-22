@@ -18,6 +18,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
 
 a2dissite -q 000-default.conf
 
+mkdir -p /var/www/html/auth
+
 curl -sSL -o /var/www/html/auth/distccd.php https://raw.githubusercontent.com/tshr20180821/render-10/main/distccd.php
 
 chown www-data:www-data /var/www/html/auth -R
