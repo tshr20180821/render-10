@@ -14,17 +14,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
   iproute2 \
   >/dev/null
 
-# distccd
+# apache setting
 
-DISTCCD_LOG_FILE=/var/www/html/auth/distccd_log.txt
-touch ${DISTCCD_LOG_FILE}
-chmod 666 ${DISTCCD_LOG_FILE}
-
-/usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=4 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180 --nice=10
-
-# apache
-
-mkdir -p /var/www/html/auth
 a2dissite -q 000-default.conf
 
 curl -sSL -o /var/www/html/auth/distccd.php https://raw.githubusercontent.com/tshr20180821/render-10/main/distccd.php
@@ -55,5 +46,15 @@ for i in {1..72}; do \
    && ps aux \
    && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
 done
+
+# distccd
+
+DISTCCD_LOG_FILE=/var/www/html/auth/distccd_log.txt
+touch ${DISTCCD_LOG_FILE}
+chmod 666 ${DISTCCD_LOG_FILE}
+
+/usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=4 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180 --nice=10
+
+# apache start
 
 exec /usr/sbin/apache2 -DFOREGROUND
