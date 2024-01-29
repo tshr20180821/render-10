@@ -6,7 +6,7 @@ error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php start");
 
 $data = gzdecode(file_get_contents("php://input"));
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 010");
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 010 " . strlen($data));
 
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
