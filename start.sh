@@ -36,7 +36,7 @@ a2enmod \
  proxy \
  proxy_http
 
-curl -sSL -o /etc/apache2/sites-enabled/apache.conf https://raw.githubusercontent.com/tshr20180821/render-10/main/apache.conf
+curl -sSL -o /etc/apache2/sites-enabled/apache.conf https://github.com/tshr20180821/render-10/raw/main/apache.conf
 
 htpasswd -c -b /var/www/html/.htpasswd "${BASIC_USER}" "${BASIC_PASSWORD}"
 chmod 644 /var/www/html/.htpasswd
