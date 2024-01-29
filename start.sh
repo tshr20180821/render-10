@@ -21,6 +21,7 @@ a2dissite -q 000-default.conf
 mkdir -p /var/www/html/auth
 
 curl -sSL -o /var/www/html/auth/distccd.php https://github.com/tshr20180821/render-10/raw/main/distccd.php
+curl -sSL -o /var/www/html/auth/distccd.php https://github.com/tshr20180821/render-10/raw/main/preload.php
 
 chown www-data:www-data /var/www/html/auth -R
 
@@ -60,6 +61,8 @@ touch ${DISTCCD_LOG_FILE}
 chmod 666 ${DISTCCD_LOG_FILE}
 
 /usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=$(($(nproc)/2)) --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180
+
+sleep 5s && curl -sS -u "${BASIC_USER}":"${BASIC_PASSWORD}" http://127.0.0.1/auth/preload.php &
 
 # apache start
 
