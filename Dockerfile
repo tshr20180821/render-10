@@ -10,7 +10,7 @@ COPY ./php.ini ${PHP_INI_DIR}/
 
 RUN set -x \
  && ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
- && docker-php-ext-install sockets
+ && docker-php-ext-install opcache sockets
 
 COPY --chmod=755 ./start.sh ./
 
