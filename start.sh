@@ -42,6 +42,7 @@ htpasswd -c -b /var/www/html/.htpasswd "${BASIC_USER}" "${BASIC_PASSWORD}"
 chmod 644 /var/www/html/.htpasswd
 . /etc/apache2/envvars >/dev/null 2>&1
 
+# 12h
 for i in {1..72}; do \
   for j in {1..10}; do sleep 60s && echo "${i} ${j}"; done \
    && ss -anpt \
