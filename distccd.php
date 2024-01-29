@@ -45,3 +45,5 @@ header('Content-Type: text/plain');
 error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 090");
 
 echo base64_encode($res);
+
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 100 " . strlen(base64_encode($res)));
