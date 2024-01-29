@@ -33,6 +33,7 @@ echo '<HTML />' >/var/www/html/index.html
 
 a2enmod \
  authz_groupfile \
+ brotli \
  proxy \
  proxy_http
 
