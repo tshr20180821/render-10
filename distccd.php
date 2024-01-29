@@ -4,10 +4,9 @@ $pid = getmypid();
 
 error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php start");
 
-$data = $_POST['data'];
+$data = gzdecode(file_get_contents("php://input"));
 
 error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 010");
-
 
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
@@ -17,7 +16,7 @@ $rc = socket_connect($socket, '127.0.0.1', 3632);
 
 error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 030 " . $rc);
 
-$rc = socket_write($socket, base64_decode($data));
+$rc = socket_write($socket, $data);
 
 error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 040 " . $rc);
 
