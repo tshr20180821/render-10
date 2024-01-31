@@ -87,7 +87,7 @@ echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
 usermod -aG sudo ${SSH_USER}
 chsh -s /bin/bash ${SSH_USER}
 
-/usr/sbin/sshd &
+/usr/sbin/sshd -4Dp 8022 -o "ListenAddress 127.0.0.1" &
 
 curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
@@ -97,7 +97,7 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 sleep 3s
 
 socat "exec:curl -u \"${BASIC_USER}\":\"${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req | openssl aes-256-cbc -d -k ${PIPING_PASSWORD}!!exec:openssl aes-256-cbc -k ${PIPING_PASSWORD} | curl -u \"${BASIC_USER}\":\"${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
-  tcp:127.0.0.1:22 &
+  tcp:127.0.0.1:8022 &
 
 # socat -d tcp-listen:8022,bind=127.0.0.1,reuseaddr,fork \
 #   "exec:curl -u \"${BASIC_USER}\":\"${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res | openssl aes-256-cbc -d -k ${PIPING_PASSWORD}!!exec:openssl aes-256-cbc -k ${PIPING_PASSWORD} | curl -u \"${BASIC_USER}\":\"${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req"
