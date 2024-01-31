@@ -37,6 +37,7 @@ a2enmod \
  proxy_http
 
 curl -sSL -o /etc/apache2/sites-enabled/apache.conf https://github.com/tshr20180821/render-10/raw/main/apache.conf
+sed -i s/__RENDER_EXTERNAL_HOSTNAME__/"${RENDER_EXTERNAL_HOSTNAME}"/g /etc/apache2/sites-enabled/apache.conf
 
 htpasswd -c -b /var/www/html/.htpasswd "${BASIC_USER}" "${BASIC_PASSWORD}"
 chmod 644 /var/www/html/.htpasswd
@@ -102,7 +103,9 @@ sleep 3s
 #   tcp:127.0.0.1:8022 &
 # socat "exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
 #   tcp:127.0.0.1:8022 &
-socat "exec:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!exec:curl -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
+# socat "exec:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!exec:curl -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
+#   tcp:127.0.0.1:8022 &
+socat "exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
   tcp:127.0.0.1:8022 &
 
 # socat -d tcp-listen:8022,bind=127.0.0.1,reuseaddr,fork \
