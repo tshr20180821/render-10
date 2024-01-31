@@ -94,7 +94,7 @@ chsh -s /bin/bash ${SSH_USER}
 curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
 
-KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 16 | head -n 1)
+KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 
 sleep 3s
 
@@ -102,7 +102,7 @@ sleep 3s
 #   tcp:127.0.0.1:8022 &
 # socat "exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
 #   tcp:127.0.0.1:8022 &
-socat "exec:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!curl -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
+socat "exec:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!exec:curl -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
   tcp:127.0.0.1:8022 &
 
 # socat -d tcp-listen:8022,bind=127.0.0.1,reuseaddr,fork \
