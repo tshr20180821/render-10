@@ -100,13 +100,15 @@ sleep 3s
 
 # socat "exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req | openssl aes-256-cbc -d -k \"${PIPING_PASSWORD}\"!!exec:openssl aes-256-cbc -k \"${PIPING_PASSWORD}\" | curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
 #   tcp:127.0.0.1:8022 &
-socat "exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
+# socat "exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
+#   tcp:127.0.0.1:8022 &
+socat "exec:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!curl -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
   tcp:127.0.0.1:8022 &
 
 # socat -d tcp-listen:8022,bind=127.0.0.1,reuseaddr,fork \
 #   "exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res | openssl aes-256-cbc -d -k ${PIPING_PASSWORD}!!exec:openssl aes-256-cbc -k ${PIPING_PASSWORD} | curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req"
 
-# openssl --help
+openssl --help
 
 # apache start
 
