@@ -67,11 +67,11 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   socat \
   sudo \
   vim \
+  >/dev/null
 
 ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 8 | head -n 1)
 SSH_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
-PIPING_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
 mkdir /var/run/sshd
 echo "root:${ROOT_PASSWORD}" | chpasswd
@@ -95,23 +95,24 @@ chsh -s /bin/bash ${SSH_USER}
 curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
 
-KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
+curl -sSLO https://github.com/nwtgck/go-piping-tunnel/releases/download/v0.10.2/piping-tunnel-0.10.2-linux-amd64.deb
+dpkg -i piping-tunnel-0.10.2-linux-amd64.deb
 
 sleep 3s
 
-# socat "exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req | openssl aes-256-cbc -d -k \"${PIPING_PASSWORD}\"!!exec:openssl aes-256-cbc -k \"${PIPING_PASSWORD}\" | curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
+# socat "exec:curl -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!exec:curl -m 3600 -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
 #   tcp:127.0.0.1:8022 &
-# socat "exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
-#   tcp:127.0.0.1:8022 &
-# socat "exec:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!exec:curl -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
-#   tcp:127.0.0.1:8022 &
-socat "exec:curl -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!exec:curl -m 3600 -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
-  tcp:127.0.0.1:8022 &
 
 # socat -d tcp-listen:8022,bind=127.0.0.1,reuseaddr,fork \
-#   "exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res | openssl aes-256-cbc -d -k ${PIPING_PASSWORD}!!exec:openssl aes-256-cbc -k ${PIPING_PASSWORD} | curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req"
+#   "exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res!!exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req"
 
-# openssl --help
+PIPING_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
+AUTH=$(echo -n "${BASIC_USER}:${BASIC_PASSWORD}" | base64)
+sleep 5s && piping-tunnel server --cipher-type aes-256-cbc --pass ${PIPING_PASSWORD} --port 8022 --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping &
+
+# piping-tunnel client --cipher-type aes-256-cbc --pass ${PIPING_PASSWORD} --port 8022 --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping
+
+sleep 10s && netstat -anpt && ps aux &
 
 # apache start
 
