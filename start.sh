@@ -108,9 +108,9 @@ sleep 3s
 
 PIPING_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 AUTH=$(echo -n "${BASIC_USER}:${BASIC_PASSWORD}" | base64)
-sleep 5s && piping-tunnel server --pass ${PIPING_PASSWORD} --port 8022 --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping &
+sleep 5s && piping-tunnel server --pass ${PIPING_PASSWORD} --port 8022 --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping  req res &
 
-# piping-tunnel client --pass ${PIPING_PASSWORD} --port 8022 --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping
+# piping-tunnel client --pass ${PIPING_PASSWORD} --port 8022 --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping  req res
 
 sleep 10s && netstat -anpt && ps aux &
 
