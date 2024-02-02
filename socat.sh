@@ -2,7 +2,7 @@
 
 set -x
 
-PIPING_SERVER=$(echo ${PIPING_SERVER} | 'sed s/:/\\:/')
+PIPING_SERVER=$(echo ${PIPING_SERVER} | sed 's/:/\\:/')
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 echo "KEYWORD : ${KEYWORD}"
 
