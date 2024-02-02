@@ -19,7 +19,7 @@ do
   echo start socat 2 ${i}
   # socat "exec:curl -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!exec:curl -m 3600 -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
   #   tcp:127.0.0.1:${TARGET_PORT}
-  socat "exec:curl -NsS ${PIPING_SERVER}/piping/${KEYWORD}req!!exec:curl -m 3600 -NsS --data-binary @- ${PIPING_SERVER}/piping/${KEYWORD}res" \
+  socat "exec:curl -NsS ${PIPING_SERVER}/${KEYWORD}req!!exec:curl -m 3600 -NsS --data-binary @- ${PIPING_SERVER}/${KEYWORD}res" \
     tcp:127.0.0.1:${TARGET_PORT}
   echo finish socat 2
 done
