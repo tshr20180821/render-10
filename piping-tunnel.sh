@@ -9,6 +9,6 @@ echo "PIPING_PASSWORD : ${PIPING_PASSWORD}"
 while true
 do
   echo start piping-tunnel
-  piping-tunnel server --pass ${PIPING_PASSWORD} --port ${TARGET_PORT} --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping req res
+  piping-tunnel server --verbose 5 --pass ${PIPING_PASSWORD} --port ${TARGET_PORT} --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping req res
   echo finish piping-tunnel
 done
