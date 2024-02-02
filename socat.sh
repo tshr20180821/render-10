@@ -6,7 +6,7 @@ PIPING_SERVER=$(echo ${PIPING_SERVER} | sed 's/:/\\:/')
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 echo "KEYWORD : ${KEYWORD}"
 
-while true
+for i in {1..10}
 do
   echo start socat 1.1
   # socat "exec:curl -v --http1.1 -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!exec:curl -v --http1.1 -m 3600 -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
