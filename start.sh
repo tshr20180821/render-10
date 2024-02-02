@@ -103,7 +103,7 @@ sleep 5s && TARGET_PORT=8022 ./socat.sh &
 # socat -d tcp-listen:8022,bind=127.0.0.1,reuseaddr,fork \
 #   "exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res!!exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req"
 
-sleep 10s && TARGET_PORT=9022 ./piping-tunnel.sh &
+# sleep 10s && TARGET_PORT=9022 ./piping-tunnel.sh &
 
 # piping-tunnel client --pass ${PIPING_PASSWORD} --port 8022 --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping req res
 
