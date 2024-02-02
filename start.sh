@@ -90,7 +90,7 @@ echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
 usermod -aG sudo ${SSH_USER}
 chsh -s /bin/bash ${SSH_USER}
 
-/usr/sbin/sshd -4Dp 8022 -o "ListenAddress 127.0.0.1" &
+/usr/sbin/sshd -4Dp 8022 -p 9022 -o "ListenAddress 127.0.0.1" &
 
 curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
@@ -98,21 +98,19 @@ curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-
 curl -sSLO https://github.com/nwtgck/go-piping-tunnel/releases/download/v0.10.2/piping-tunnel-0.10.2-linux-amd64.deb
 dpkg -i piping-tunnel-0.10.2-linux-amd64.deb
 
-sleep 3s
-
 sleep 5s && socat "exec:curl -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!exec:curl -m 3600 -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
   tcp:127.0.0.1:8022 &
 
 # socat -d tcp-listen:8022,bind=127.0.0.1,reuseaddr,fork \
 #   "exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res!!exec:curl -u \"${BASIC_USER}:${BASIC_PASSWORD}\" -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req"
 
-# PIPING_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
-# AUTH=$(echo -n "${BASIC_USER}:${BASIC_PASSWORD}" | base64)
-# sleep 5s && piping-tunnel server --pass ${PIPING_PASSWORD} --port 8022 --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping  req res &
+PIPING_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
+AUTH=$(echo -n "${BASIC_USER}:${BASIC_PASSWORD}" | base64)
+sleep 10s && piping-tunnel server --pass ${PIPING_PASSWORD} --port 9022 --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping req res &
 
-# piping-tunnel client --pass ${PIPING_PASSWORD} --port 8022 --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping  req res
+# piping-tunnel client --pass ${PIPING_PASSWORD} --port 8022 --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping req res
 
-sleep 10s && ss -anpt && ps aux &
+sleep 15s && ss -anpt && ps aux &
 
 # apache start
 
