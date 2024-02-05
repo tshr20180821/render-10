@@ -11,7 +11,7 @@ echo "KEYWORD : ${KEYWORD}"
 
 for i in {1..10}
 do
-  echo set +H && socat -d tcp4-listen:8022,bind=127.0.0.1,reuseaddr,fork \\ \
+  echo socat -d tcp4-listen:8022,bind=127.0.0.1,reuseaddr,fork \\ \
     \"exec:curl -NsS ${PIPING_SERVER}/${KEYWORD}res!!exec:curl -NsST - ${PIPING_SERVER}/${KEYWORD}req\"
 
   echo start socat 1.1 ${i}
