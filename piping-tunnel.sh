@@ -8,8 +8,9 @@ echo "PIPING_PASSWORD : ${PIPING_PASSWORD}"
 
 for i in {1..10}
 do
-  echo start piping-tunnel
-  # piping-tunnel server --verbose 5 --pass ${PIPING_PASSWORD} --port ${TARGET_PORT} --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping req res
+  echo start piping-tunnel ${i} ${PIPING_SERVER}
   piping-tunnel server --verbose 5 --pass ${PIPING_PASSWORD} --port ${TARGET_PORT} --symmetric --server ${PIPING_SERVER} req res
-  echo finish piping-tunnel
+
+  echo start piping-tunnel ${i} https://${RENDER_EXTERNAL_HOSTNAME}/piping
+  piping-tunnel server --verbose 5 --pass ${PIPING_PASSWORD} --port ${TARGET_PORT} --symmetric --header "Authorization: Basic ${AUTH}" --server https://${RENDER_EXTERNAL_HOSTNAME}/piping req res
 done
