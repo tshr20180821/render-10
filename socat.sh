@@ -17,12 +17,12 @@ do
   echo start socat 1.1 ${i}
   # socat "exec:curl --http1.1 -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!exec:curl --http1.1 -m 3600 -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
   #   tcp:127.0.0.1:${TARGET_PORT}
-  socat -ddd -x -4 "exec:curl -v --http1.1 -NsS ${PIPING_SERVER}/${KEYWORD}req!!exec:curl -v --http1.1 -m 3600 -NsST - ${PIPING_SERVER}/${KEYWORD}res" \
+  socat -ddd -v -4 "exec:curl -v --http1.1 -NsS ${PIPING_SERVER}/${KEYWORD}req!!exec:curl -v --http1.1 -m 3600 -NsST - ${PIPING_SERVER}/${KEYWORD}res" \
     tcp4:127.0.0.1:${TARGET_PORT}
 
   echo start socat 2 ${i}
   # socat "exec:curl -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!exec:curl -m 3600 -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
   #   tcp:127.0.0.1:${TARGET_PORT}
-  socat -ddd -x -4 "exec:curl -v -NsS ${PIPING_SERVER}/${KEYWORD}req!!exec:curl -v -m 3600 -NsST - ${PIPING_SERVER}/${KEYWORD}res" \
+  socat -ddd -v -4 "exec:curl -v -NsS ${PIPING_SERVER}/${KEYWORD}req!!exec:curl -v -m 3600 -NsST - ${PIPING_SERVER}/${KEYWORD}res" \
     tcp4:127.0.0.1:${TARGET_PORT}
 done
