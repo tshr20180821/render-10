@@ -92,7 +92,7 @@ echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
 usermod -aG sudo ${SSH_USER}
 chsh -s /bin/bash ${SSH_USER}
 
-/usr/sbin/sshd -vvv -4Dp 8022 -p 9022 -o "ListenAddress 127.0.0.1" &
+/usr/sbin/sshd -d -4Dp 8022 -p 9022 -o "ListenAddress 127.0.0.1" &
 
 curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
