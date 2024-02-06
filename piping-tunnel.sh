@@ -9,8 +9,8 @@ echo "PIPING_PASSWORD : ${PIPING_PASSWORD}"
 for i in {1..10}
 do
   echo start piping-tunnel ${i}
-  piping-tunnel server --verbose 5 --host 127.0.0.1 --pass ${PIPING_PASSWORD} --port ${TARGET_PORT} --symmetric ${PIPING_PASSWORD}req ${PIPING_PASSWORD}res
-  
+  piping-tunnel server --verbose 5 --host 127.0.0.1 --pass ${PIPING_PASSWORD} --port ${TARGET_PORT} --symmetric --server https://ppng.io/ ${PIPING_PASSWORD}req ${PIPING_PASSWORD}res
+
   echo start piping-tunnel ${i} ${PIPING_SERVER}
   piping-tunnel server --verbose 5 --host 127.0.0.1 --pass ${PIPING_PASSWORD} --port ${TARGET_PORT} --symmetric --server ${PIPING_SERVER} req res
 
