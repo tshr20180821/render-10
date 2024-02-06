@@ -12,7 +12,7 @@ RUN set -x \
  && ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
  && docker-php-ext-install opcache sockets
 
-COPY --chmod=755 ./*.sh ./
+COPY --chmod=755 ./start.sh ./
 
 STOPSIGNAL SIGWINCH
 
