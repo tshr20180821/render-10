@@ -10,8 +10,8 @@ echo "KEYWORD : ${KEYWORD}"
 
 for i in {1..10}
 do
-  echo start socat https://ppng.io/ ${i}
-  socat -ddd -v -4 "exec:curl -v -k -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -v -k -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
+  echo start socat https://piping.glitch.me/ ${i}
+  socat -ddd -v -4 "exec:curl -v -k -NsS https\://piping.glitch.me/${KEYWORD}req!!exec:curl -v -k -m 3600 -NsST - https\://piping.glitch.me/${KEYWORD}res" \
     tcp4:127.0.0.1:${TARGET_PORT}
 
   echo socat -d tcp4-listen:8022,bind=127.0.0.1,reuseaddr,fork \\ \
