@@ -2,6 +2,8 @@
 
 set -x
 
+export PS4='+(${BASH_SOURCE}:${LINENO}): '
+
 # apt
 
 DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
