@@ -11,7 +11,7 @@ echo "KEYWORD : ${KEYWORD}"
 # socat -ddd -v -4 "exec:curl -v -k -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -v -k -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
 #   tcp4:127.0.0.1:${TARGET_PORT} &
 
-for i in {1..10}
+for i in {1..2}
 do
   # echo socat -d tcp4-listen:8022,bind=127.0.0.1,reuseaddr,fork \\ \
   #   \"exec:curl -NsS ${PIPING_SERVER}/${KEYWORD}res!!exec:curl -NsST - ${PIPING_SERVER}/${KEYWORD}req\"
