@@ -20,7 +20,7 @@ do
   socat -ddd -v -4 "exec:curl -vk --http1.1 -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req!!exec:curl -vk --http1.1 -m 3600 -u ${BASIC_USER}\:${BASIC_PASSWORD} -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res" \
     tcp:127.0.0.1:${TARGET_PORT}
 
-  curl -sSu ${BASIC_USER}\:${BASIC_PASSWORD} -d 'dummy' https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req
+  curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} -d 'dummy' https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req
 
   # socat -ddd -v -4 "exec:curl -v -k --http1.1 -NsS ${PIPING_SERVER}/${KEYWORD}req!!exec:curl -v -k --http1.1 -m 3600 -NsST - ${PIPING_SERVER}/${KEYWORD}res" \
   #  tcp4:127.0.0.1:${TARGET_PORT}
