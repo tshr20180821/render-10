@@ -9,5 +9,5 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
 for i in {1..2}
 do
-  GPG_TTY=$(tty) socat "exec:piping-duplex -s https\://ppng.io -c ${KEYWORD}res ${KEYWORD}req" tcp:127.0.0.1:10022
+  socat "exec:piping-duplex -s https\://ppng.io ${KEYWORD}res ${KEYWORD}req" tcp:127.0.0.1:10022
 done
