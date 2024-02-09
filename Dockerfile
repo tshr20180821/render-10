@@ -2,7 +2,7 @@ FROM php:8.3-apache
 
 EXPOSE 80
 
-SHELL ["/bin/bash", "-c"]
+# SHELL ["/bin/bash", "-c"]
 
 WORKDIR /usr/src/app
 
