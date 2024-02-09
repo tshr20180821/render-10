@@ -46,6 +46,8 @@ ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 8 | head -n 1)
 SSH_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
+ls -lang /etc/ssh/sshd_config.d/
+
 echo "PermitRootLogin yes" >>/etc/ssh/sshd_config
 
 mkdir /var/run/sshd
