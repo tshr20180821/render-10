@@ -11,6 +11,12 @@ dpkg -i piping-tunnel-0.10.2-linux-amd64.deb
 
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
+ls -lang /dev/
+
+mknod -m 666 /dev/tty c 5 0
+mknod -m 660 /dev/tty0 c 4 0
+mknod -m 600 /dev/tty1 c 4 1
+
 for i in {1..5}
 do
   echo start piping-tunnel ${i}
