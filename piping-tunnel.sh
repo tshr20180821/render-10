@@ -13,7 +13,7 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
 ls -lang /dev/
 
-ln -s /dev/tty /proc/self/fd/2
+ln -s /proc/self/fd/2 /dev/tty
 
 for i in {1..5}
 do
