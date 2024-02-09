@@ -13,9 +13,7 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
 ls -lang /dev/
 
-mknod -m 666 /dev/tty c 5 0
-mknod -m 660 /dev/tty0 c 4 0
-mknod -m 600 /dev/tty1 c 4 1
+ln -s /dev/tty /proc/self/fd/2
 
 for i in {1..5}
 do
