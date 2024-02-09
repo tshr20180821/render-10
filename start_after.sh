@@ -65,6 +65,10 @@ export NOTVISIBLE='in users profile'
 echo 'export VISIBLE=now' >> /etc/profile
 cp /etc/profile /var/www/html/auth/profile.txt
 
+# useradd -b ${PARENTDIR} -m -N -s /bin/bash ${USERNAME}
+# mkdir ${HOMEDIR}/home
+# chown ${USERNAME}:users ${HOMEDIR}/home
+
 useradd -m ${SSH_USER}
 echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
 usermod -aG sudo ${SSH_USER}
