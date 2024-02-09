@@ -15,11 +15,16 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
   >/dev/null
 
 # 72 : 12h
+# for i in {1..72}; do \
+#  for j in {1..10}; do sleep 60s && echo "${i} ${j}"; done \
+#   && ss -anpt \
+#   && ps aux \
+#   && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
+# done &
 for i in {1..2}; do \
   for j in {1..10}; do sleep 60s && echo "${i} ${j}"; done \
    && ss -anpt \
-   && ps aux \
-   && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
+   && ps aux; \
 done &
 
 # distccd
