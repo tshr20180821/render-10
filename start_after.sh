@@ -48,8 +48,11 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
 
 # telnetd
 
-find / -name telnetd -print
+# find / -name telnetd -print
 
+/opt/render-ssh/bin/telnetd --version
+/opt/render-ssh/bin/telnetd --help
+/usr/sbin/telnetd --version
 /usr/sbin/telnetd --help
 
 # sshd
