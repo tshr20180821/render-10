@@ -87,10 +87,18 @@ cp /etc/profile /var/www/html/auth/profile.txt
 # mkdir ${HOMEDIR}/home
 # chown ${USERNAME}:users ${HOMEDIR}/home
 
-useradd -m ${SSH_USER}
+useradd -b /home -m -s /bin/bash ${SSH_USER}
 echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
 usermod -aG sudo ${SSH_USER}
-chsh -s /bin/bash ${SSH_USER}
+chown ${SSH_USER}:users /home/${SSH_USER}
+
+cat /etc/passwd
+
+ls -lang /home/
+
+ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t rsa -N ""
+
+cat /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.pub
 
 /usr/sbin/sshd -edg 0 -4Dp 8022 -p 9022 -p 10022 -o "ListenAddress 127.0.0.1" -o "PermitRootLogin yes" &
 
