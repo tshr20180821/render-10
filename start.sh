@@ -7,7 +7,8 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): '
 # apt
 
 apt-get -qq update
-DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
+apt-get -s upgrade
+DEBIAN_FRONTEND=noninteractive apt-get -q -y upgrade >/dev/null
 
 # apache setting
 
