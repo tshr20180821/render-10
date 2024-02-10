@@ -60,6 +60,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
 # /usr/sbin/telnetd --debug=report &
 
 dropbear --help
+find / -name dropbear -print 2>/dev/null
 
 # sshd
 
@@ -109,7 +110,8 @@ chown -R ${SSH_USER}:users /home/${SSH_USER}
 cp /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} /var/www/html/auth/
 chmod 666 /var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}
 
-/usr/sbin/sshd -edg 0 -4Dp 8022 -p 9022 -p 10022 -o "ListenAddress 127.0.0.1" -o "PermitRootLogin yes" &
+# /usr/sbin/sshd -edg 0 -4Dp 8022 -p 9022 -p 10022 -o "ListenAddress 127.0.0.1" -o "PermitRootLogin yes" &
+dropbear -p 127.0.0.1:8022
 
 curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
