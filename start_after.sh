@@ -52,13 +52,11 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
 
 /opt/render-ssh/bin/telnetd --version
 /opt/render-ssh/bin/telnetd --help
-
 /opt/render-ssh/bin/telnetd -p 8023 -b 127.0.0.1 -F &
 
-/usr/sbin/telnetd --version
-/usr/sbin/telnetd --help
-
-/usr/sbin/telnetd --debug=report &
+# /usr/sbin/telnetd --version
+# /usr/sbin/telnetd --help
+# /usr/sbin/telnetd --debug=report &
 
 sleep 3s
 ss -ant
