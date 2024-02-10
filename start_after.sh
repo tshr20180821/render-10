@@ -44,6 +44,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   openssh-server \
   socat \
   sudo \
+  telnetd \
   vim \
   >/dev/null
 
