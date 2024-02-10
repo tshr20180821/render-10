@@ -37,8 +37,6 @@ chmod 666 ${DISTCCD_LOG_FILE}
 
 /usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=$(($(nproc)/2)) --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180
 
-# sshd
-
 DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   less \
   openssh-server \
@@ -47,6 +45,14 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   telnetd \
   vim \
   >/dev/null
+
+# telnetd
+
+find / -name telnetd -print
+
+telnetd -4 -debug 8023 -D report &
+
+# sshd
 
 ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 8 | head -n 1)
