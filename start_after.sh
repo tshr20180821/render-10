@@ -94,11 +94,18 @@ chown ${SSH_USER}:users /home/${SSH_USER}
 
 cat /etc/passwd
 
-ls -lang /home/
+mkdir /home/${SSH_USER}/.ssh
+chmod 700 /home/${SSH_USER}/.ssh
 
 ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t rsa -N ""
 
+ls -lang /home/${SSH_USER}/.ssh/
+
 cat /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.pub
+
+cat /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.pub >>/home/${SSH_USER}/.ssh/authorized_keys
+
+cp /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} /var/www/html/auth/
 
 /usr/sbin/sshd -edg 0 -4Dp 8022 -p 9022 -p 10022 -o "ListenAddress 127.0.0.1" -o "PermitRootLogin yes" &
 
