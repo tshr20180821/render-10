@@ -8,10 +8,10 @@ PIPING_SERVER=$(echo ${PIPING_SERVER} | sed 's/:/\\:/')
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 echo "KEYWORD : ${KEYWORD}"
 
-# socat -ddd -v -4 "exec:curl -v -k -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -v -k -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
-#   tcp4:127.0.0.1:${TARGET_PORT}
 socat -ddd -v -4 "exec:curl -v -k -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -v -k -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
-  tcp4:127.0.0.1:8023
+  tcp4:127.0.0.1:${TARGET_PORT}
+# socat -ddd -v -4 "exec:curl -v -k -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -v -k -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
+#   tcp4:127.0.0.1:8023
 
 for i in {1..2}
 do
