@@ -107,8 +107,8 @@ chmod +x ./*.sh
 
 sleep 5s && TARGET_PORT=8022 ./socat.sh &
 
-sleep 10s && TARGET_PORT=9022 ./piping-tunnel.sh &
+# sleep 10s && TARGET_PORT=9022 ./piping-tunnel.sh &
 
-sleep 15s && TARGET_PORT=10022 ./piping-duplex.sh &
+# sleep 15s && TARGET_PORT=10022 ./piping-duplex.sh &
 
 sleep 20s && ss -anpt && ps aux &
