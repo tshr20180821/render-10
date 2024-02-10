@@ -50,7 +50,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
 
 find / -name telnetd -print
 
-telnetd -4 -debug 8023 -D report &
+telnetd --help
 
 # sshd
 
