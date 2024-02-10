@@ -90,7 +90,6 @@ cp /etc/profile /var/www/html/auth/profile.txt
 useradd -b /home -m -s /bin/bash ${SSH_USER}
 echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
 usermod -aG sudo ${SSH_USER}
-chown ${SSH_USER}:users /home/${SSH_USER}
 
 cat /etc/passwd
 
@@ -107,7 +106,7 @@ cat /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}
 
 cat /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.pub >>/home/${SSH_USER}/.ssh/authorized_keys
 
-chown -R ${SSH_USER}.${SSH_USER} /home/${SSH_USER}
+chown -R ${SSH_USER}:users /home/${SSH_USER}
 
 cp /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} /var/www/html/auth/
 chmod 666 /var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}
