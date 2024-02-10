@@ -60,7 +60,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
 
 /usr/sbin/telnetd --debug=report &
 
-/usr/sbin/in.telnetd -D report -debug 9023 &
+/usr/sbin/telnetd -D report -debug 9023 &
 
 # sshd
 
