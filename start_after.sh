@@ -37,13 +37,20 @@ chmod 666 ${DISTCCD_LOG_FILE}
 
 /usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=$(($(nproc)/2)) --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180
 
+# DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
+#   dropbear \
+#   less \
+#   openssh-server \
+#   socat \
+#   sudo \
+#   telnetd \
+#   vim \
+#   >/dev/null
 DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   dropbear \
   less \
-  openssh-server \
   socat \
   sudo \
-  telnetd \
   vim \
   >/dev/null
 
