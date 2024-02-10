@@ -60,7 +60,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
 
 /usr/sbin/telnetd --debug=report &
 
-/usr/sbin/telnetd -debug 9023 &
+sleep 3s
+ss -ant
 
 # sshd
 
