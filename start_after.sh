@@ -49,6 +49,7 @@ chmod 666 ${DISTCCD_LOG_FILE}
 DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   dropbear \
   less \
+  openssh-server \
   socat \
   sudo \
   vim \
