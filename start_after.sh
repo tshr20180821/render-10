@@ -55,6 +55,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
 /usr/sbin/telnetd --version
 /usr/sbin/telnetd --help
 
+/usr/sbin/telnetd --debug=report 8023 &
+
 # sshd
 
 ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
