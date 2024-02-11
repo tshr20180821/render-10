@@ -12,7 +12,7 @@ echo "KEYWORD : ${KEYWORD}"
 
 {
   echo "curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} >key.txt"; \
-  echo "chomo 600 key.txt"; \
+  echo "chmod 600 key.txt"; \
   echo "socat -4 tcp4-listen:8022,bind=127.0.0.1 'exec:curl -NsS ${PIPING_SERVER}/${KEYWORD}res!!exec:curl -NsST - ${PIPING_SERVER}/${KEYWORD}req' &"; \
   echo "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt"; \
 } >MESSAGE.txt
