@@ -14,6 +14,12 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
   iproute2 \
   >/dev/null
 
+if [ -z "${PIPING_SERVER}" ]; then
+  PIPING_SERVER=http://127.0.0.1
+fi
+
+curl -m 5 ${PIPING_SERVER} >/dev/null 2>&1
+
 # 72 : 12h
 # for i in {1..72}; do \
 #  for j in {1..10}; do sleep 60s && echo "${i} ${j}"; done \
@@ -23,6 +29,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
 # done &
 for i in {1..2}; do \
   for j in {1..10}; do sleep 60s && echo "${i} ${j}"; done \
+   && curl -m 5 ${PIPING_SERVER} >/dev/null 2>&1 \
    && ss -anpt \
    && ps aux; \
 done &
