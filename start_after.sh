@@ -18,7 +18,7 @@ if [ -z "${PIPING_SERVER}" ]; then
   PIPING_SERVER=http://127.0.0.1
 fi
 
-curl -m 5 ${PIPING_SERVER}/help >/dev/null 2>&1
+curl ${PIPING_SERVER}/help
 
 # 72 : 12h
 # for i in {1..72}; do \
