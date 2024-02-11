@@ -2,6 +2,8 @@
 
 set -x
 
+export PS4='+(${BASH_SOURCE}:${LINENO}): '
+
 socat -h
 
 PIPING_SERVER=$(echo ${PIPING_SERVER} | sed 's/:/\\:/')
