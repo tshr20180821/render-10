@@ -24,7 +24,7 @@ MESSAGE=$(cat MESSAGE.txt)
 rm MESSAGE.txt
 
 curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
-  -d "text=${MESSAGE}" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage >/dev/null
+  -d "text=${MESSAGE}" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage
 
 # socat -ddd -v -4 "exec:curl -v -k -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -v -k -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
 #   tcp4:127.0.0.1:${TARGET_PORT}
