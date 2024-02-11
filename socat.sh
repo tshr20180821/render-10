@@ -10,8 +10,18 @@ PIPING_SERVER=$(echo ${PIPING_SERVER} | sed 's/:/\\:/')
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 echo "KEYWORD : ${KEYWORD}"
 
+{
+  echo "curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} >key.txt"; \
+  echo "chomo 600 key.txt"; \
+  echo "socat -4 tcp4-listen:8022,bind=127.0.0.1 'exec:curl -NsS ${PIPING_SERVER}/${KEYWORD}res!!exec:curl -NsST - ${PIPING_SERVER}/${KEYWORD}req' &"; \
+  echo "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt"; \
+} >MESSAGE.txt
+
+MESSAGE=$(cat MESSAGE.txt)
+rm MESSAGE.txt
+
 curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
-  -d "text=${SSH_USER} ${KEYWORD}" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage >/dev/null
+  -d "text=${MESSAGE}" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage >/dev/null
 
 # socat -ddd -v -4 "exec:curl -v -k -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -v -k -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
 #   tcp4:127.0.0.1:${TARGET_PORT}
