@@ -28,7 +28,11 @@ curl -m 5 ${PIPING_SERVER} >/dev/null 2>&1
 #   && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
 # done &
 for i in {1..2}; do \
-  for j in {1..10}; do sleep 60s && echo "${i} ${j}" && curl -m 5 ${PIPING_SERVER} >/dev/null 2>&1; done \
+  for j in {1..10}; do \
+    sleep 60s \
+     && echo "${i} ${j}" \
+     && curl -m 5 ${PIPING_SERVER} >/dev/null 2>&1; \
+  done \
    && ss -anpt \
    && ps aux; \
 done &
