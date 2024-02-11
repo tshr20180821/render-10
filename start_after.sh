@@ -65,18 +65,6 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   vim \
   >/dev/null
 
-# telnetd
-
-# find / -name telnetd -print
-
-# /opt/render-ssh/bin/telnetd --version
-# /opt/render-ssh/bin/telnetd --help
-# /opt/render-ssh/bin/telnetd -p 8023 -b 127.0.0.1 -F &
-
-# /usr/sbin/telnetd --version
-# /usr/sbin/telnetd --help
-# /usr/sbin/telnetd --debug=report &
-
 dropbear --help
 find / -name dropbear -print 2>/dev/null
 
@@ -108,7 +96,7 @@ useradd -b /home -m -s /bin/bash ${SSH_USER}
 echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
 usermod -aG sudo ${SSH_USER}
 
-cat /etc/passwd
+# cat /etc/passwd
 
 mkdir /home/${SSH_USER}/.ssh
 chmod 700 /home/${SSH_USER}/.ssh
@@ -130,16 +118,16 @@ chmod 666 /var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}
 
 # /usr/sbin/sshd -edg 0 -4Dp 8022 -p 9022 -p 10022 -o "ListenAddress 127.0.0.1" -o "PermitRootLogin yes" &
 # dropbear -p 127.0.0.1:8022 -E -F -r /etc/dropbear/authorized_keys &
-/usr/sbin/dropbear -Ep 127.0.0.1:8022
+/usr/sbin/dropbear -Eswp 127.0.0.1:8022
 
-curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
-./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
+# curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
+# ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
 
 sleep 3s
 
 curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat.sh
-curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
-curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-duplex.sh
+# curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
+# curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-duplex.sh
 
 chmod +x ./*.sh
 
