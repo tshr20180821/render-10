@@ -10,7 +10,7 @@ PIPING_SERVER=$(echo ${PIPING_SERVER} | sed 's/:/\\:/')
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 echo "KEYWORD : ${KEYWORD}"
 
-{
+{ \
   echo "pwd"; \
   echo "curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} >key.txt"; \
   echo "chmod 600 key.txt"; \
