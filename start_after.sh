@@ -31,7 +31,7 @@ for i in {1..2}; do \
   for j in {1..10}; do \
     sleep 60s \
      && echo "${i} ${j}" \
-     && curl -m 5 ${PIPING_SERVER} >/dev/null 2>&1; \
+     && curl -m 5 ${PIPING_SERVER}/help >/dev/null 2>&1; \
   done \
    && ss -anpt \
    && ps aux; \
