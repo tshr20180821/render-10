@@ -20,11 +20,13 @@ echo "KEYWORD : ${KEYWORD}"
   echo "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt"; \
 } >MESSAGE.txt
 
-MESSAGE=$(cat MESSAGE.txt)
-rm MESSAGE.txt
+cat MESSAGE.txt
 
-curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
-  -d "text=${MESSAGE}" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage
+# MESSAGE=$(cat MESSAGE.txt)
+# rm MESSAGE.txt
+
+# curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
+#   -d "text=${MESSAGE}" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage
 
 # socat -ddd -v -4 "exec:curl -v -k -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -v -k -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
 #   tcp4:127.0.0.1:${TARGET_PORT}
