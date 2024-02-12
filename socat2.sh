@@ -5,6 +5,7 @@ set -x
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
+PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
 { \
   echo "curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} >key.txt"; \
@@ -20,7 +21,7 @@ cat MESSAGE.txt
   echo "#!/bin/bash"; \
   echo "";
   echo "set -x";
-  echo "cat - | openssl aes-256-cbc | curl -NsS https://ppng.io/${KEYWORD}req"; \
+  echo "cat - | openssl aes-256-cbc -pass ${PASSWORD} -base64 | curl -NsS https://ppng.io/${KEYWORD}req"; \
 } >./req.sh
 
 chmod +x ./req.sh
@@ -29,7 +30,7 @@ chmod +x ./req.sh
   echo "#!/bin/bash"; \
   echo "";
   echo "set -x";
-  echo "curl -m 3600 -NsST - https://ppng.io/${KEYWORD}res | openssl aes-256-cbc -d"; \
+  echo "curl -m 3600 -NsST - https://ppng.io/${KEYWORD}res | openssl aes-256-cbc -d -pass ${PASSWORD} -base64"; \
 } >./res.sh
 
 chmod +x ./res.sh
