@@ -19,7 +19,8 @@ cat MESSAGE.txt
 { \
   echo "#!/bin/bash"; \
   echo "";
-  echo "cat - | curl -NsS https://ppng.io/${KEYWORD}req"; \
+  echo "set -x";
+  echo "cat - | openssl aes-256-cbc | curl -NsS https://ppng.io/${KEYWORD}req"; \
 } >./req.sh
 
 chmod +x ./req.sh
@@ -27,7 +28,8 @@ chmod +x ./req.sh
 { \
   echo "#!/bin/bash"; \
   echo "";
-  echo "curl -m 3600 -NsST - https://ppng.io/${KEYWORD}res"; \
+  echo "set -x";
+  echo "curl -m 3600 -NsST - https://ppng.io/${KEYWORD}res | openssl aes-256-cbc -d"; \
 } >./res.sh
 
 chmod +x ./res.sh
