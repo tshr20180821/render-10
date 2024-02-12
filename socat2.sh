@@ -37,6 +37,9 @@ chmod +x ./req.sh
 
 chmod +x ./res.sh
 
+curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
+  -d "text=START" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage
+
 # socat -4 "exec:curl -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
 #   tcp4:127.0.0.1:${TARGET_PORT}
 socat -4 "exec:/usr/src/app/req.sh!!exec:/usr/src/app/res.sh" \
