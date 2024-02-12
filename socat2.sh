@@ -22,7 +22,7 @@ cat MESSAGE.txt
   echo ""; \
   echo "set -x"; \
   echo "echo START REQ"; \
-  echo "cat - | openssl enc -e aes-256-cbc -pass pass:${PASSWORD} -base64 | curl -v -NsS https://ppng.io/${KEYWORD}req"; \
+  echo "cat - | openssl aes-256-cbc -pass pass:${PASSWORD} -base64 | curl -v -NsS https://ppng.io/${KEYWORD}req"; \
 } >./req.sh
 
 chmod +x ./req.sh
@@ -32,7 +32,7 @@ chmod +x ./req.sh
   echo ""; \
   echo "set -x"; \
   echo "echo START RES"; \
-  echo "curl -v -m 3600 -NsST - https://ppng.io/${KEYWORD}res | openssl enc -d aes-256-cbc -pass pass:${PASSWORD} -base64"; \
+  echo "curl -v -m 3600 -NsST - https://ppng.io/${KEYWORD}res | openssl aes-256-cbc -d -pass pass:${PASSWORD} -base64"; \
 } >./res.sh
 
 chmod +x ./res.sh
