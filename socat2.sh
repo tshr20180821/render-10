@@ -27,7 +27,7 @@ chmod +x ./req.sh
 { \
   echo "#!/bin/bash"; \
   echo "";
-  echo "cat - | curl -m 3600 -NsST - https://ppng.io/${KEYWORD}res"; \
+  echo "curl -m 3600 -NsST - https://ppng.io/${KEYWORD}res"; \
 } >./res.sh
 
 chmod +x ./res.sh
