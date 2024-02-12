@@ -7,7 +7,7 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): '
 # apt
 
 apt-get -qq update
-apt-get -s upgrade
+apt-get -s upgrade | grep -v "^Conf " | grep -v "^Inst "
 DEBIAN_FRONTEND=noninteractive apt-get -q -y upgrade >/dev/null
 
 # apache setting
