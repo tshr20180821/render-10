@@ -36,7 +36,12 @@ chmod +x ./req.sh
 chmod +x ./res.sh
 
 curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
-  -d "text=START ${KEYWORD} ${PASSWORD}" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage
+  -d "text=./socat.sh ${SSH_USER} ${KEYWORD} ${PASSWORD} &" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage
+
+sleep 1s
+
+curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
+  -d "text=ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage
 
 # socat -4 "exec:curl -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
 #   tcp4:127.0.0.1:${TARGET_PORT}
