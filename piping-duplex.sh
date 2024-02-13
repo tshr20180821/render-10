@@ -13,11 +13,13 @@ piping-duplex --help
 
 script --help
 
-gettty --help
+getty --help
 
 # tty=$(readlink /proc/$$/fd/2)
 
-# socat -ddd -v "exec:piping-duplex -c -s https\://ppng.io ${KEYWORD}res ${KEYWORD}req" tcp4:127.0.0.1:${TARGET_PORT}
+tty=/dev/tty
+
+socat "exec:piping-duplex -c -s https\://ppng.io ${KEYWORD}res ${KEYWORD}req" tcp4:127.0.0.1:${TARGET_PORT}
 
 { \
   echo "#!/bin/sh"; \
