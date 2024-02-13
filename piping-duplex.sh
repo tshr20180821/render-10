@@ -13,6 +13,8 @@ piping-duplex --help
 
 script --help
 
+gettty --help
+
 # tty=$(readlink /proc/$$/fd/2)
 
 # socat -ddd -v "exec:piping-duplex -c -s https\://ppng.io ${KEYWORD}res ${KEYWORD}req" tcp4:127.0.0.1:${TARGET_PORT}
@@ -29,4 +31,4 @@ chmod +x ./piping_duplex.sh
 
 # socat 'exec:script -fc /usr/src/app/piping_duplex.sh' tcp4:127.0.0.1:${TARGET_PORT}
 PIPING_SERVER=https://ppng.io
-socat 'exec:script -fc "piping-duplex -c KEYWORD_res KEYWORD_req"' tcp4:127.0.0.1:${TARGET_PORT}
+socat -ddd 'exec:script -fc "piping-duplex -c KEYWORD_res KEYWORD_req"' tcp4:127.0.0.1:${TARGET_PORT}
