@@ -11,9 +11,9 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
 piping-duplex --help
 
-tty=$(readlink /proc/$$/fd/2)
+# tty=$(readlink /proc/$$/fd/2)
 
-socat -ddd -v "exec:piping-duplex -c -s https\://ppng.io ${KEYWORD}res ${KEYWORD}req" tcp4:127.0.0.1:${TARGET_PORT}
+# socat -ddd -v "exec:piping-duplex -c -s https\://ppng.io ${KEYWORD}res ${KEYWORD}req" tcp4:127.0.0.1:${TARGET_PORT}
 
 { \
   echo "#!/bin/bash"; \
