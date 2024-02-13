@@ -18,9 +18,8 @@ script --help
 # socat -ddd -v "exec:piping-duplex -c -s https\://ppng.io ${KEYWORD}res ${KEYWORD}req" tcp4:127.0.0.1:${TARGET_PORT}
 
 { \
-  echo "#!/bin/bash"; \
+  echo "#!/bin/sh"; \
   echo ""; \
-  echo "set -x"; \
   echo "piping-duplex -c -s https://ppng.io ${KEYWORD}res ${KEYWORD}req"; \
 } >./piping_duplex.sh
 
@@ -28,7 +27,4 @@ cat ./piping_duplex.sh
 
 chmod +x ./piping_duplex.sh
 
-for i in {1..2}
-do
-  socat -ddd -v 'exec:script -fc /usr/src/app/piping_duplex.sh' tcp4:127.0.0.1:${TARGET_PORT}
-done
+socat 'exec:script -fc /usr/src/app/piping_duplex.sh' tcp4:127.0.0.1:${TARGET_PORT}
