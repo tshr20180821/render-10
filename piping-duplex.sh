@@ -22,7 +22,9 @@ chmod +x ./piping-duplex.sh
 
 cat ./piping-duplex.sh
 
-socat -ddd -v 'exec:/usr/src/app/piping-duplex.sh' tcp4:127.0.0.1:${TARGET_PORT}
+tty=$(readlink /proc/$$/fd/2)
+
+socat -ddd -v "exec:piping-duplex -c -s https\://ppng.io ${KEYWORD}res ${KEYWORD}req" tcp4:127.0.0.1:${TARGET_PORT}
 
 for i in {1..2}
 do
