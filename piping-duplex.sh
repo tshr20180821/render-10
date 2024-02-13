@@ -2,6 +2,8 @@
 
 set -x
 
+export PS4='+(${BASH_SOURCE}:${LINENO}): '
+
 curl -sSLO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-release-trigger2/piping-duplex-0.3.0-release-trigger2-linux-amd64.deb
 dpkg -i piping-duplex-0.3.0-release-trigger2-linux-amd64.deb
 
