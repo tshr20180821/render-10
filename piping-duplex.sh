@@ -20,6 +20,8 @@ piping-duplex --help
 
 chmod +x ./piping-duplex.sh
 
+cat ./piping-duplex.sh
+
 socat -ddd -v 'exec:/usr/src/app/piping-duplex.sh' tcp4:127.0.0.1:${TARGET_PORT}
 
 for i in {1..2}
