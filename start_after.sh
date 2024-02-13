@@ -118,17 +118,18 @@ chmod 666 /var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}
 
 # /usr/sbin/sshd -edg 0 -4Dp 8022 -p 9022 -p 10022 -o "ListenAddress 127.0.0.1" -o "PermitRootLogin yes" &
 # dropbear -p 127.0.0.1:8022 -E -F -r /etc/dropbear/authorized_keys &
-/usr/sbin/dropbear -Eswp 127.0.0.1:8022 -p 127.0.0.1:10022
+/usr/sbin/dropbear -Eswp 127.0.0.1:8022 -p 127.0.0.1:9022 -p 127.0.0.1:10022
 
 # curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 # ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
 
 sleep 3s
 
-curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat.sh
-curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat2.sh
+# curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat.sh
+# curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat2.sh
+curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat3.sh
 # curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
-curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-duplex.sh
+# curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-duplex.sh
 
 chmod +x ./*.sh
 
@@ -136,8 +137,10 @@ chmod +x ./*.sh
 
 # sleep 10s && TARGET_PORT=8022 ./socat2.sh &
 
+sleep 5s && TARGET_PORT=8022 ./socat3.sh &
+
 # sleep 10s && TARGET_PORT=9022 ./piping-tunnel.sh &
 
-sleep 5s && TARGET_PORT=10022 ./piping-duplex.sh &
+# sleep 5s && TARGET_PORT=10022 ./piping-duplex.sh &
 
 sleep 10s && ss -anpt && ps aux &
