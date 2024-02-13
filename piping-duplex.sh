@@ -18,9 +18,11 @@ piping-duplex --help
   echo "script -fc piping-duplex -c -s https://ppng.io ${KEYWORD}res ${KEYWORD}req"; \
 } >./piping-duplex.sh
 
-chmod +x piping-duplex.sh
+chmod +x ./piping-duplex.sh
+
+socat -ddd -v 'exec:/usr/src/app/piping-duplex.sh' tcp4:127.0.0.1:${TARGET_PORT}
 
 for i in {1..2}
 do
-  socat -ddd -v "exec:/usr/src/app/piping-duplex.sh" tcp4:127.0.0.1:${TARGET_PORT}
+  socat -ddd -v 'exec:/usr/src/app/piping-duplex.sh' tcp4:127.0.0.1:${TARGET_PORT}
 done
