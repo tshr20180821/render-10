@@ -22,12 +22,12 @@ echo "KEYWORD : ${KEYWORD}"
 
 cat MESSAGE.txt
 
-openssl genrsa -out server.key 1024
+openssl genrsa -out server.key 2048
 openssl req -new -key server.key -x509 -days 365 -subj /CN=US/ -out server.crt
 cat server.key server.crt >server.pem
 chmod 600 server.key server.pem
 
-openssl genrsa -out client.key 1024
+openssl genrsa -out client.key 2048
 openssl req -new -key client.key -x509 -days 365 -subj /CN=US/ -out client.crt
 cat client.key client.crt >client.pem
 chmod 600 client.key client.pem
