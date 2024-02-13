@@ -22,5 +22,5 @@ chmod +x piping-duplex.sh
 
 for i in {1..2}
 do
-  socat "exec:/usr/src/app/piping-duplex.sh" tcp4:127.0.0.1:${TARGET_PORT}
+  socat -ddd -v "exec:/usr/src/app/piping-duplex.sh" tcp4:127.0.0.1:${TARGET_PORT}
 done
