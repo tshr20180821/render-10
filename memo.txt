@@ -1,0 +1,4 @@
+
+ssh 1 -> socat -> 1 openssl-listen -> tcp 2 -> socat -> 2 tcp-listen -> curl ppng.io
+
+socat -> curl ppng.io -> tcp 3 -> socat -> openssl -> sshd ?
