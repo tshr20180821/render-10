@@ -27,4 +27,6 @@ cat ./piping_duplex.sh
 
 chmod +x ./piping_duplex.sh
 
-socat 'exec:script -fc /usr/src/app/piping_duplex.sh' tcp4:127.0.0.1:${TARGET_PORT}
+# socat 'exec:script -fc /usr/src/app/piping_duplex.sh' tcp4:127.0.0.1:${TARGET_PORT}
+PIPING_SERVER=https://ppng.io
+socat 'exec:script -fc "piping-duplex -c KEYWORD_res KEYWORD_req"' tcp4:127.0.0.1:${TARGET_PORT}
