@@ -11,7 +11,7 @@ dpkg -i piping-tunnel-0.10.2-linux-amd64.deb
 
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
-tty
+piping-tunnel --help
 
 for i in {1..5}
 do
