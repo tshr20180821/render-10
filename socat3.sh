@@ -4,7 +4,7 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-socat -h
+socat -hhh
 
 PIPING_SERVER=$(echo ${PIPING_SERVER} | sed 's/:/\\:/')
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
