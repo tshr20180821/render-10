@@ -40,3 +40,6 @@ cp ./client.crt /var/www/html/auth/
 
 socat -4 -dddd "exec:curl -vk -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -vk -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
   openssl:127.0.0.1:${TARGET_PORT},cert=/usr/src/app/client.pem,cafile=/usr/src/app/server.crt
+
+# socat -4 "exec:curl -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
+#   tcp4:127.0.0.1:${TARGET_PORT}
