@@ -94,7 +94,9 @@ cp /etc/profile /var/www/html/auth/profile.txt
 
 useradd -b /home -m -s /bin/bash ${SSH_USER}
 echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
+cat /etc/group
 usermod -aG sudo ${SSH_USER}
+cat /etc/group
 
 # cat /etc/passwd
 
