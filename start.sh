@@ -7,6 +7,7 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): '
 # apt
 
 apt-get -qq update
+DEBIAN_FRONTEND=noninteractive apt-get install dnsutils
 apt-get -s upgrade | grep -v "^Conf " | grep -v "^Inst "
 DEBIAN_FRONTEND=noninteractive apt-get -q -y upgrade >/dev/null
 
