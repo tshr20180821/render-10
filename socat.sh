@@ -20,7 +20,7 @@ echo "KEYWORD : ${KEYWORD}"
   echo "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt"; \
 } >MESSAGE.txt
 
-MESSAGE=$(cat MESSAGE.txt | base64)
+MESSAGE=$(cat MESSAGE.txt | base64 -w 0)
 rm MESSAGE.txt
 
 curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
