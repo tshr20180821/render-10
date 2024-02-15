@@ -12,6 +12,11 @@ DEBIAN_FRONTEND=noninteractive apt-get -q -y upgrade >/dev/null
 
 # apache setting
 
+export HOME_IP_ADDRESS=$(nslookup ${HOME_FQDN} 8.8.8.8 | tail -n2 | grep -o '[0-9]\+.\+')
+if [ -z "${HOME_IP_ADDRESS}" ]; then
+  HOME_IP_ADDRESS=127.0.0.1
+fi
+
 a2dissite -q 000-default.conf
 
 mkdir -p /var/www/html/auth
