@@ -1,4 +1,6 @@
-
-ssh 1 -> socat -> 1 openssl-listen -> tcp 2 -> socat -> 2 tcp-listen -> curl ppng.io
-
-socat -> curl ppng.io -> tcp 3 -> socat -> openssl -> sshd ?
+Host __REQ_HOST__.onreder.com
+    ProxyCommand socat tcp4-listen:1080 openssl:__REAL_HOST__.onreder.com:443,verify=0 & sleep 1 && socat - proxy:127.0.0.1:127.0.0.1:8022,proxyport=1080
+    DynamicForward 1080
+    ServerAliveInterval 60
+    ControlMaster auto
+    ControlPath ~/.ssh/tmp/%h_%p_%r
