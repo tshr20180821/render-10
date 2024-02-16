@@ -18,5 +18,5 @@ do
    | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass pass:${PASSWORD} -bufsize 1 -pbkdf2 -iter 1000 -md sha-256 \
    | socat - tcp4:127.0.0.1:${TARGET_PORT} \
    | stdbuf -i0 -o0 openssl aes-256-ctr -pass pass:${PASSWORD} -bufsize 1 -pbkdf2 -iter 1000 -md sha-256 \
-   | curl -m 3600 -sSNT - https://ppng.io/${KEYWORD}res
+   | curl -m 300 -sSNT - https://ppng.io/${KEYWORD}res
 done
