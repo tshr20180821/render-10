@@ -17,7 +17,7 @@ for i in {1..5}
 do
   echo start piping-tunnel ${i}
   # piping-tunnel server --verbose 5 --host 127.0.0.1 --port ${TARGET_PORT} --symmetric --server https://ppng.io ${KEYWORD}req ${KEYWORD}res
-  piping-tunnel server --verbose 5 --host 127.0.0.1 --port ${TARGET_PORT} --server https://ppng.io ${KEYWORD}req ${KEYWORD}res
+  piping-tunnel server --verbose 5 --host 127.0.0.1 --port ${TARGET_PORT} --server https://ppng.io --symmetric ${KEYWORD} ${KEYWORD}req ${KEYWORD}res
 
   # echo start piping-tunnel ${i} ${PIPING_SERVER}
   # piping-tunnel server --verbose 5 --host 127.0.0.1 --pass ${PIPING_PASSWORD} --port ${TARGET_PORT} --symmetric --server ${PIPING_SERVER} req res
