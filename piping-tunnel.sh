@@ -14,11 +14,16 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
 piping-tunnel --help
 
+MESSAGE="piping-tunnel client --host 127.0.0.1 --port 8022 --server https://ppng.io -symmetric --pass ${PIPING_PASSWORD} ${KEYWORD}req ${KEYWORD}res"
+
+curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
+  -d "{\"channel\":\"${SLACK_CHANNEL}\",\"text\":\"${MESSAGE}\"}" https://slack.com/api/chat.postMessage
+
 for i in {1..5}
 do
   echo start piping-tunnel ${i}
   # piping-tunnel server --verbose 5 --host 127.0.0.1 --port ${TARGET_PORT} --symmetric --server https://ppng.io ${KEYWORD}req ${KEYWORD}res
-  piping-tunnel server --verbose 5 --host 127.0.0.1 --port ${TARGET_PORT} --server https://ppng.io --symmetric --pass ${PIPING_PASSWORD} ${KEYWORD}req ${KEYWORD}res
+  piping-tunnel server --verbose 5 --host 127.0.0.1 --port ${TARGET_PORT} --server https://ppng.io --cipher-type=aes-256-ctr --symmetric --pass ${PIPING_PASSWORD} ${KEYWORD}req ${KEYWORD}res
 
   # echo start piping-tunnel ${i} ${PIPING_SERVER}
   # piping-tunnel server --verbose 5 --host 127.0.0.1 --pass ${PIPING_PASSWORD} --port ${TARGET_PORT} --symmetric --server ${PIPING_SERVER} req res
