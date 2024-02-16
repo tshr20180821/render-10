@@ -28,7 +28,7 @@ for i in {1..2}; do \
      && curl -sS ${PIPING_SERVER}/help >/dev/null 2>&1; \
   done \
    && ss -anpt \
-   && ps aux; \
+   && ps aux \
    && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
 done &
 
