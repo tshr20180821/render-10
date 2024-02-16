@@ -21,7 +21,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
 #   && ps aux \
 #   && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
 # done &
-for i in {1..2}; do \
+for i in {1..72}; do \
   for j in {1..10}; do \
     sleep 60s \
      && echo "${i} ${j}" \
@@ -109,20 +109,20 @@ sleep 3s
 
 # curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat.sh
 # curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat2.sh
-curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat3.sh
-curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
+# curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat3.sh
+# curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
 # curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-duplex.sh
-# curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/fah.sh
+curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/fah.sh
 
 chmod +x ./*.sh
 
-# ./fah.sh &
+./fah.sh &
 
 # sleep 5s && TARGET_PORT=9022 ./socat.sh &
 
-sleep 5s && TARGET_PORT=8022 ./socat3.sh &
+# sleep 5s && TARGET_PORT=8022 ./socat3.sh &
 
-sleep 10s && TARGET_PORT=9022 ./piping-tunnel.sh &
+# sleep 10s && TARGET_PORT=9022 ./piping-tunnel.sh &
 
 # sleep 5s && TARGET_PORT=10022 ./piping-duplex.sh &
 
