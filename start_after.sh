@@ -51,7 +51,6 @@ fi
 DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   dropbear \
   less \
-  netcat-openbsd \
   openssh-server \
   socat \
   vim \
