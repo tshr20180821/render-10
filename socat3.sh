@@ -14,6 +14,6 @@ curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: app
 
 curl -sSN https://ppng.io/${KEYWORD}req \
  | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass pass:${PASSWORD} -bufsize 1 -pbkdf2 -iter 1000 -md sha-256 \
- | nc 127.0.0.1 ${TARGET_PORT} \
+ | socat - tcp4:127.0.0.1:${TARGET_PORT} \
  | stdbuf -i0 -o0 openssl aes-256-ctr -pass pass:${PASSWORD} -bufsize 1 -pbkdf2 -iter 1000 -md sha-256 \
  | curl -sSNT - https://ppng.io/${KEYWORD}res
