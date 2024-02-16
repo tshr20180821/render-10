@@ -21,7 +21,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
 #   && ps aux \
 #   && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
 # done &
-for i in {1..72}; do \
+for i in {1..2}; do \
   for j in {1..10}; do \
     sleep 60s \
      && echo "${i} ${j}" \
@@ -29,6 +29,7 @@ for i in {1..72}; do \
   done \
    && ss -anpt \
    && ps aux; \
+   && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
 done &
 
 # distccd
@@ -81,6 +82,9 @@ ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t 
 
 ls -lang /home/${SSH_USER}/.ssh/
 
+mkdir -p /root/.ssh
+cp /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.pub /root/.ssh/
+
 sed -i 's/root/'${SSH_USER}'/' /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.pub
 cat /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.pub >>/etc/dropbear/authorized_keys
 cat /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.pub >>/home/${SSH_USER}/.ssh/authorized_keys
@@ -92,7 +96,7 @@ chmod 666 /var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}
 
 dropbear --help
 ls -lang /etc/dropbear/
-/usr/sbin/dropbear -Eswp 127.0.0.1:8022 -p 127.0.0.1:9022
+/usr/sbin/dropbear -Esp 127.0.0.1:8022 -p 127.0.0.1:9022
 
 # curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 # ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
