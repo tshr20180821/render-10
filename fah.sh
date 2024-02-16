@@ -14,4 +14,5 @@ find / -name FAHClient -print 2>/dev/null
 
 FAHClient --help
 
-FAHClient -v --user=Anonymous --team=0 --gpu=false --gui-enabled=false --cpus=$(($(nproc)/2)) --chdir=/tmp --log-to-screen=true --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 --max-packet-size=small
+FAHClient -v --user=Anonymous --team=0 --gpu=false --gui-enabled=false --cpus=$(($(nproc)/2)) --chdir=/tmp --log-to-screen=true \
+  --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 --max-packet-size=small &
