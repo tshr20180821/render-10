@@ -4,7 +4,8 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-# PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping/
+# PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping
+# PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping_rust
 # AUTH="-u ${BASIC_USER} ${BASIC_PASSWORD}"
 AUTH=
 
