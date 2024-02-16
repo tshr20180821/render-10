@@ -4,42 +4,16 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-socat -hhh
-
-PIPING_SERVER=$(echo ${PIPING_SERVER} | sed 's/:/\\:/')
+PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
-echo "KEYWORD : ${KEYWORD}"
 
-{ \
-  echo "pwd"; \
-  echo "curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} >key.txt"; \
-  echo "chmod 600 key.txt"; \
-  echo "set +H"; \
-  echo "socat -4 tcp4-listen:8022,bind=127.0.0.1 'exec:curl -NsS ${PIPING_SERVER}/${KEYWORD}res!!exec:curl -NsST - ${PIPING_SERVER}/${KEYWORD}req' &"; \
-  echo "set -H"; \
-  echo "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt"; \
-} >MESSAGE.txt
+MESSAGE="curl -sSN https://ppng.io/${KEYWORD}res | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass pass:${PASSWORD} -bufsize 1 -pbkdf2 -iter 1000 -md sha-256 | socat tcp4-listen:8022,bind=127.0.0.1 - | stdbuf -i0 -o0 openssl aes-256-ctr -pass pass:${PASSWORD} -bufsize 1 -pbkdf2 -iter 1000 -md sha-256 | curl -sSNT - https://ppng.io/${KEYWORD}req"
 
-cat MESSAGE.txt
+curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
+  -d "{\"channel\":\"${SLACK_CHANNEL}\",\"text\":\"${MESSAGE}\"}" https://slack.com/api/chat.postMessage
 
-# openssl genrsa -aes256 -out server.key 4096
-openssl genrsa -out server.key 4096
-openssl req -new -key server.key -x509 -days 365 -subj /CN=US/ -out server.crt
-cat server.key server.crt >server.pem
-chmod 600 server.key server.pem
-
-openssl genrsa -out client.key 4096
-openssl req -new -key client.key -x509 -days 365 -subj /CN=US/ -out client.crt
-cat client.key client.crt >client.pem
-chmod 600 client.key client.pem
-
-ls -lang
-
-cp ./server.pem /var/www/html/auth/
-cp ./client.crt /var/www/html/auth/
-
-socat -4 -dddd "exec:curl -vk -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -vk -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
-  openssl:127.0.0.1:${TARGET_PORT},cert=/usr/src/app/client.pem,cafile=/usr/src/app/server.crt
-
-# socat -4 "exec:curl -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
-#   tcp4:127.0.0.1:${TARGET_PORT}
+curl -sSN https://ppng.io/${KEYWORD}req \
+ | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass pass:${PASSWORD} -bufsize 1 -pbkdf2 -iter 1000 -md sha-256 \
+ | nc 127.0.0.1 ${TARGET_PORT} \
+ | stdbuf -i0 -o0 openssl aes-256-ctr -pass pass:${PASSWORD} -bufsize 1 -pbkdf2 -iter 1000 -md sha-256 \
+ | curl -sSNT - https://ppng.io/${KEYWORD}res
