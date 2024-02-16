@@ -10,6 +10,7 @@ mkdir -p /usr/share/doc/fahclient
 touch /usr/share/doc/fahclient/sample-config.xml
 
 DEBIAN_FRONTEND=noninteractive apt-get -y install ./fahclient_7.6.21_amd64.deb
+rm ./fahclient_7.6.21_amd64.deb
 
 find / -name FAHClient -print 2>/dev/null
 
