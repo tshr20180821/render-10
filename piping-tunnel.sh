@@ -2,6 +2,8 @@
 
 set -x
 
+export PS4='+(${BASH_SOURCE}:${LINENO}): '
+
 curl -sSLO https://github.com/nwtgck/go-piping-tunnel/releases/download/v0.10.2/piping-tunnel-0.10.2-linux-amd64.deb
 dpkg -i piping-tunnel-0.10.2-linux-amd64.deb
 
