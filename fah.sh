@@ -14,4 +14,4 @@ find / -name FAHClient -print 2>/dev/null
 
 FAHClient --help
 
-FAHClient --user=Anonymous --team=0 --passkwy="" --gpu=false --smp=true --cpus=1 --chdir=/tmp &
+FAHClient -v --user=Anonymous --team=0 --gpu=false --cpus=1 --chdir=/tmp &
