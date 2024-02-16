@@ -6,7 +6,7 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
 # PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping
 # PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping_rust
-# AUTH="-u ${BASIC_USER} ${BASIC_PASSWORD}"
+# AUTH="-u ${BASIC_USER}:${BASIC_PASSWORD}"
 AUTH=
 
 PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
