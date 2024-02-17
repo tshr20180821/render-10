@@ -50,6 +50,7 @@ fi
 
 DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   dropbear \
+  jq \
   less \
   openssh-server \
   socat \
