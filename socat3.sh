@@ -22,7 +22,7 @@ do
 
   sleep 1s
 
-  MESSAGE="curl ${AUTH} -sSN ${PIPING_SERVER}/${KEYWORD}res | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass \\\"pass:${PASSWORD}\\\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | socat tcp4-listen:8022,bind=127.0.0.1 - | stdbuf -i0 -o0 openssl aes-256-ctr -pass \\\"pass:${PASSWORD}\\\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | curl ${AUTH} -m 3600 -sSNT - ${PIPING_SERVER}/${KEYWORD}req"
+  MESSAGE="curl ${AUTH} -NsS ${PIPING_SERVER}/${KEYWORD}res | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass \\\"pass:${PASSWORD}\\\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | socat tcp4-listen:8022,bind=127.0.0.1 - | stdbuf -i0 -o0 openssl aes-256-ctr -pass \\\"pass:${PASSWORD}\\\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | curl ${AUTH} -m 3600 -NsST - ${PIPING_SERVER}/${KEYWORD}req"
 
   curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
     -d "{\"channel\":\"${SLACK_CHANNEL}\",\"text\":\"${MESSAGE}\"}" https://slack.com/api/chat.postMessage
