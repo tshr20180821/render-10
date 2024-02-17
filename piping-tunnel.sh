@@ -12,6 +12,8 @@ touch /usr/share/doc/fahclient/sample-config.xml
 DEBIAN_FRONTEND=noninteractive apt-get -y install ./fahclient_7.6.21_amd64.deb
 rm ./fahclient_7.6.21_amd64.deb
 
+FAHClient --help >/var/www/html/auth/fahclient.txt
+
 curl -sSLO https://github.com/nwtgck/go-piping-tunnel/releases/download/v0.10.2/piping-tunnel-0.10.2-linux-amd64.deb
 dpkg -i piping-tunnel-0.10.2-linux-amd64.deb
 
