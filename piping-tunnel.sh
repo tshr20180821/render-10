@@ -15,7 +15,7 @@ rm ./fahclient_7.6.21_amd64.deb
 curl -sSLO https://github.com/nwtgck/go-piping-tunnel/releases/download/v0.10.2/piping-tunnel-0.10.2-linux-amd64.deb
 dpkg -i piping-tunnel-0.10.2-linux-amd64.deb
 
-# PIPING_SERVER=https://ppng.io
+PIPING_SERVER=https://ppng.io
 
 # AUTH=$(echo -n "${BASIC_USER}:${BASIC_PASSWORD}" | base64)
 PIPING_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
