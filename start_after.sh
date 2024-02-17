@@ -120,9 +120,9 @@ chmod +x ./*.sh
 
 # sleep 5s && TARGET_PORT=9022 ./socat.sh &
 
-# sleep 5s && TARGET_PORT=8022 ./socat3.sh &
+sleep 5s && TARGET_PORT=8022 ./socat3.sh &
 
-sleep 10s && TARGET_PORT=9022 ./piping-tunnel.sh &
+# sleep 10s && TARGET_PORT=9022 ./piping-tunnel.sh &
 
 # sleep 5s && TARGET_PORT=10022 ./piping-duplex.sh &
 
