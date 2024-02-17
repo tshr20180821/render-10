@@ -109,8 +109,8 @@ sleep 3s
 
 # curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat.sh
 # curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat2.sh
-# curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat3.sh
-curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
+curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat3.sh
+# curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
 # curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-duplex.sh
 # curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/fah.sh
 
