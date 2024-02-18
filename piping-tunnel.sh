@@ -15,7 +15,7 @@ rm ./fahclient_7.6.21_amd64.deb
 FAHClient --help >/var/www/html/auth/fahclient.txt
 
 FAHClient -v --user=Anonymous --team=0 --gpu=false --cpus=$(nproc) --chdir=/tmp --log-to-screen=true \
-  --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 --max-packet-size=small --priority=realtime --verbosity=5 &
+  --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 --max-packet-size=small --priority=high --verbosity=5 &
 
 curl -sSLO https://github.com/nwtgck/go-piping-tunnel/releases/download/v0.10.2/piping-tunnel-0.10.2-linux-amd64.deb
 dpkg -i piping-tunnel-0.10.2-linux-amd64.deb
