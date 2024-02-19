@@ -4,18 +4,10 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-curl -sSO https://download.foldingathome.org/releases/public/release/fahclient/debian-stable-64bit/v7.6/fahclient_7.6.21_amd64.deb
+curl -sSo dropbox.deb https://www.dropbox.com/download?dl=packages/debian/dropbox_2024.01.22_amd64.deb
 
-mkdir -p /usr/share/doc/fahclient
-touch /usr/share/doc/fahclient/sample-config.xml
-
-DEBIAN_FRONTEND=noninteractive apt-get -y install ./fahclient_7.6.21_amd64.deb
-rm ./fahclient_7.6.21_amd64.deb
-
-FAHClient --help >/var/www/html/auth/fahclient.txt
-
-FAHClient -v --user=Anonymous --team=0 --gpu=false --cpus=$(nproc) --chdir=/tmp --log-to-screen=true \
-  --http-addresses=127.0.0.1:7396 --command-address=127.0.0.1 --max-packet-size=small --priority=high --verbosity=5 &
+dpkg -i dropbox.deb
+rm dropbox.deb
 
 curl -sSLO https://github.com/nwtgck/go-piping-tunnel/releases/download/v0.10.2/piping-tunnel-0.10.2-linux-amd64.deb
 dpkg -i piping-tunnel-0.10.2-linux-amd64.deb
