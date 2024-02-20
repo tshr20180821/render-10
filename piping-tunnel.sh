@@ -41,7 +41,7 @@ AUTH=$(echo -n "${BASIC_USER}:${BASIC_PASSWORD}" | base64)
 # AUTH=
 AUTH_HEADER=
 if [ ! -z "${AUTH}" ]; then
-  AUTH_HEADER="-H 'Authorization: Basic ${AUTH}'"
+  AUTH_HEADER=-H "Authorization: Basic ${AUTH}"
 fi
 PIPING_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 # echo "PIPING_PASSWORD : ${PIPING_PASSWORD}"
