@@ -39,9 +39,11 @@ dpkg -i piping-tunnel-0.10.2-linux-amd64.deb
 PIPING_SERVER="https://${RENDER_EXTERNAL_HOSTNAME}/piping"
 AUTH=$(echo -n "${BASIC_USER}:${BASIC_PASSWORD}" | base64)
 # AUTH=
+CURL_OPT=
 AUTH_HEADER=
 if [ ! -z "${AUTH}" ]; then
   AUTH_HEADER=-H "Authorization: Basic ${AUTH}"
+  CURL_OPT="-u ${BASIC_USER}:${BASIC_PASSWORD}"
 fi
 PIPING_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 # echo "PIPING_PASSWORD : ${PIPING_PASSWORD}"
@@ -50,26 +52,13 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
 # piping-tunnel --help
 
-# MESSAGE="piping-tunnel client --host 127.0.0.1 --port 8022 --server https://ppng.io -symmetric --pass ${PIPING_PASSWORD} ${KEYWORD}req ${KEYWORD}res"
+echo "curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} >key.txt" >/var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.txt
+echo "chmod 600 key.txt" >>/var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.txt
+echo "curl ${CURL_OPT} -NsS ${PIPING_SERVER}/${KEYWORD}res | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass \"pass:${PIPING_PASSWORD}\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | socat tcp4-listen:8022 - | stdbuf -i0 -o0 openssl aes-256-ctr -pass \"pass:${PIPING_PASSWORD}\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | curl ${CURL_OPT} -NsST - ${PIPING_SERVER}/${KEYWORD}req &" >>/var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.txt
+echo "sleep 3s" >>/var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.txt
+echo "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt" >>/var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.txt
 
-# curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
-#   -d "{\"channel\":\"${SLACK_CHANNEL}\",\"text\":\"${MESSAGE}\"}" https://slack.com/api/chat.postMessage
-
-MESSAGE="curl ${AUTH} -NsS ${PIPING_SERVER}/${KEYWORD}res | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass \\\"pass:${PIPING_PASSWORD}\\\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | socat tcp4-listen:8022,bind=127.0.0.1 - | stdbuf -i0 -o0 openssl aes-256-ctr -pass \\\"pass:${PIPING_PASSWORD}\\\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | curl ${AUTH} -m 3600 -NsST - ${PIPING_SERVER}/${KEYWORD}req"
-
-curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
-  -d "{\"channel\":\"${SLACK_CHANNEL}\",\"text\":\"${MESSAGE}\"}" https://slack.com/api/chat.postMessage >/dev/null
-
-sleep 1s
-
-MESSAGE="curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} >key.txt"
-
-curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
-  -d "{\"channel\":\"${SLACK_CHANNEL}\",\"text\":\"${MESSAGE}\"}" https://slack.com/api/chat.postMessage >/dev/null
-
-sleep 1s
-
-MESSAGE="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt"
+MESSAGE="curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.txt >info.txt"
 
 curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
   -d "{\"channel\":\"${SLACK_CHANNEL}\",\"text\":\"${MESSAGE}\"}" https://slack.com/api/chat.postMessage >/dev/null
