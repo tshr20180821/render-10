@@ -5,7 +5,6 @@ set -x
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
 ls -lang /
-mkdir /root
 
 # curl -sSLo dropbox.deb https://www.dropbox.com/download?dl=packages/debian/dropbox_2024.01.22_amd64.deb
 
@@ -24,6 +23,7 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   megatools
 
 megatools --help
+megatools reg --help
 
 curl -sSLO https://github.com/rclone/rclone/releases/download/v1.65.2/rclone-v1.65.2-linux-amd64.deb
 
