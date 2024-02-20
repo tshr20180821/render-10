@@ -4,10 +4,12 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-curl -sSLo dropbox.deb https://www.dropbox.com/download?dl=packages/debian/dropbox_2024.01.22_amd64.deb
+# curl -sSLo dropbox.deb https://www.dropbox.com/download?dl=packages/debian/dropbox_2024.01.22_amd64.deb
 
-DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ./dropbox.deb
-rm dropbox.deb
+# DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ./dropbox.deb
+# rm dropbox.deb
+
+curl -sSL https://www.dropbox.com/download?plat=lnx.x86_64 | tar xzf -
 
 find / -name dropboxd -print 2>/dev/null
 
