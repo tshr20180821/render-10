@@ -36,9 +36,13 @@ curl -sSLO https://github.com/nwtgck/go-piping-tunnel/releases/download/v0.10.2/
 dpkg -i piping-tunnel-0.10.2-linux-amd64.deb
 
 # PIPING_SERVER=https://ppng.io
-
-# AUTH=$(echo -n "${BASIC_USER}:${BASIC_PASSWORD}" | base64)
-AUTH=
+PIPING_SERVER="https://${RENDER_EXTERNAL_HOSTNAME}/piping"
+AUTH=$(echo -n "${BASIC_USER}:${BASIC_PASSWORD}" | base64)
+# AUTH=
+AUTH_HEADER=
+if [ ! -z "${AUTH}" ]; then
+  AUTH_HEADER="-H \"Authorization: Basic ${AUTH}\""
+fi
 PIPING_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 # echo "PIPING_PASSWORD : ${PIPING_PASSWORD}"
 
@@ -70,9 +74,7 @@ MESSAGE="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SS
 curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
   -d "{\"channel\":\"${SLACK_CHANNEL}\",\"text\":\"${MESSAGE}\"}" https://slack.com/api/chat.postMessage >/dev/null
 
-for i in {1..5}
-do
-  echo start piping-tunnel ${i}
-  # piping-tunnel server --verbose 5 --host 127.0.0.1 --port ${TARGET_PORT} --server https://ppng.io --cipher-type=openssl-aes-256-ctr --pbkdf2='{"iter":1000,"hash":"sha256"}' --symmetric --pass ${PIPING_PASSWORD} ${KEYWORD}req ${KEYWORD}res
-  piping-tunnel server --host 127.0.0.1 --port ${TARGET_PORT} --cipher-type=openssl-aes-256-ctr --pbkdf2='{"iter":1000,"hash":"sha256"}' --symmetric --pass ${PIPING_PASSWORD} ${KEYWORD}req ${KEYWORD}res
-done
+# piping-tunnel server --verbose 5 --host 127.0.0.1 --port ${TARGET_PORT} --server https://ppng.io --cipher-type=openssl-aes-256-ctr --pbkdf2='{"iter":1000,"hash":"sha256"}' --symmetric --pass ${PIPING_PASSWORD} ${KEYWORD}req ${KEYWORD}res
+piping-tunnel server --host 127.0.0.1 --port ${TARGET_PORT} ${AUTH_HEADER} \
+  --symmetric --cipher-type=openssl-aes-256-ctr --pbkdf2='{"iter":1000,"hash":"sha256"}' --pass ${PIPING_PASSWORD} \
+  ${KEYWORD}req ${KEYWORD}res
