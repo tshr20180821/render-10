@@ -4,6 +4,8 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
+ls -lang /
+
 # curl -sSLo dropbox.deb https://www.dropbox.com/download?dl=packages/debian/dropbox_2024.01.22_amd64.deb
 
 # DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ./dropbox.deb
