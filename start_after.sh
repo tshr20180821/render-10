@@ -118,6 +118,6 @@ sleep 5s && TARGET_PORT=8022 ./socat.sh &
 
 # sleep 5s && TARGET_PORT=9022 ./socat2.sh &
 
-sleep 10s && TARGET_PORT=10022 ./piping-tunnel.sh &
+# sleep 10s && TARGET_PORT=10022 ./piping-tunnel.sh &
 
 sleep 15s && ss -anpt && ps aux &
