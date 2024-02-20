@@ -11,17 +11,15 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 echo "KEYWORD : ${KEYWORD}"
 
 { \
-  echo "pwd"; \
   echo "curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} >key.txt"; \
   echo "chmod 600 key.txt"; \
   echo "set +H"; \
   echo "socat -4 tcp4-listen:8022,bind=127.0.0.1 'exec:curl ${AUTH} --http1.1 -NsS ${PIPING_SERVER}/${KEYWORD}res!!exec:curl ${AUTH} --http1.1 -NsST - ${PIPING_SERVER}/${KEYWORD}req' &"; \
   echo "set -H"; \
   echo "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt"; \
-} >MESSAGE.txt
+}  >/var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.txt
 
-MESSAGE=$(cat MESSAGE.txt | base64 -w 0)
-rm MESSAGE.txt
+MESSAGE="curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.txt >info.txt"
 
 curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
   -d "{\"channel\":\"${SLACK_CHANNEL}\",\"text\":\"${MESSAGE}\"}" https://slack.com/api/chat.postMessage >/dev/null
