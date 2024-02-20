@@ -4,46 +4,39 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
-PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
+PIPING_SERVER=https://ppng.io
+# PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping
+# PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping_rust
+# AUTH="-u ${BASIC_USER}:${BASIC_PASSWORD}"
+AUTH=
 
-{ \
-  echo "curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} >key.txt"; \
-  echo "set +H"; \
-  echo "socat -4 tcp4-listen:8022,bind=127.0.0.1 'exec:curl -NsS https\://ppng.io/${KEYWORD}res!!exec:curl -NsST - https\://ppng.io/${KEYWORD}req' &"; \
-  echo "set -H"; \
-  echo "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt"; \
-} >MESSAGE.txt
+for i in {1..5}
+do
+  PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
+  KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
-cat MESSAGE.txt
+  MESSAGE="curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} >key.txt"
 
-{ \
-  echo "#!/bin/bash"; \
-  echo ""; \
-  echo "set -x"; \
-  echo "cat - | openssl enc -aes-256-cbc -e -pbkdf2 -iter 1000 -pass pass:${PASSWORD} -base64 | curl -NsS https://ppng.io/${KEYWORD}req"; \
-} >./req.sh
+  curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
+    -d "{\"channel\":\"${SLACK_CHANNEL}\",\"text\":\"${MESSAGE}\"}" https://slack.com/api/chat.postMessage
 
-chmod +x ./req.sh
+  sleep 1s
 
-{ \
-  echo "#!/bin/bash"; \
-  echo ""; \
-  echo "set -x"; \
-  echo "curl -m 3600 -NsST - https://ppng.io/${KEYWORD}res | openssl enc -aes-256-cbc -d -pbkdf2 -iter 1000 -pass pass:${PASSWORD} -base64"; \
-} >./res.sh
+  MESSAGE="curl ${AUTH} -NsS ${PIPING_SERVER}/${KEYWORD}res | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass \\\"pass:${PASSWORD}\\\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | socat tcp4-listen:8022,bind=127.0.0.1 - | stdbuf -i0 -o0 openssl aes-256-ctr -pass \\\"pass:${PASSWORD}\\\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | curl ${AUTH} -m 3600 -NsST - ${PIPING_SERVER}/${KEYWORD}req"
 
-chmod +x ./res.sh
+  curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
+    -d "{\"channel\":\"${SLACK_CHANNEL}\",\"text\":\"${MESSAGE}\"}" https://slack.com/api/chat.postMessage
 
-curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
-  -d "text=./socat.sh ${SSH_USER} ${KEYWORD} ${PASSWORD} &" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage
+  sleep 1s
 
-sleep 1s
+  MESSAGE="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt"
 
-curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" \
-  -d "text=ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt" -d "channel=${SLACK_CHANNEL}" https://slack.com/api/chat.postMessage
-
-# socat -4 "exec:curl -NsS https\://ppng.io/${KEYWORD}req!!exec:curl -m 3600 -NsST - https\://ppng.io/${KEYWORD}res" \
-#   tcp4:127.0.0.1:${TARGET_PORT}
-socat -4 "exec:/usr/src/app/req.sh!!exec:/usr/src/app/res.sh" \
-  tcp4:127.0.0.1:${TARGET_PORT}
+  curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
+    -d "{\"channel\":\"${SLACK_CHANNEL}\",\"text\":\"${MESSAGE}\"}" https://slack.com/api/chat.postMessage
+  
+  curl ${AUTH} -sSN ${PIPING_SERVER}/${KEYWORD}req \
+   | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
+   | socat tcp4:127.0.0.1:${TARGET_PORT} - \
+   | stdbuf -i0 -o0 openssl aes-256-ctr -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
+   | curl ${AUTH} -m 300 -sSNT - ${PIPING_SERVER}/${KEYWORD}res
+done

@@ -98,7 +98,7 @@ chmod 666 /var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}
 
 dropbear --help
 ls -lang /etc/dropbear/
-/usr/sbin/dropbear -Esp 127.0.0.1:8022 -p 127.0.0.1:9022
+/usr/sbin/dropbear -Esp 127.0.0.1:8022 -p 127.0.0.1:9022 -p 127.0.0.1:10022
 
 curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
@@ -117,14 +117,10 @@ curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
 
 chmod +x ./*.sh
 
-# ./fah.sh &
+sleep 5s && TARGET_PORT=8022 ./socat.sh &
 
-# sleep 5s && TARGET_PORT=9022 ./socat.sh &
+# sleep 5s && TARGET_PORT=9022 ./socat2.sh &
 
-# sleep 5s && TARGET_PORT=8022 ./socat3.sh &
-
-sleep 5s && TARGET_PORT=9022 ./piping-tunnel.sh &
-
-# sleep 5s && TARGET_PORT=10022 ./piping-duplex.sh &
+sleep 10s && TARGET_PORT=10022 ./piping-tunnel.sh &
 
 sleep 15s && ss -anpt && ps aux &
