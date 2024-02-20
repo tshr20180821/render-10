@@ -115,9 +115,9 @@ curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/megatools.sh
 
 chmod +x ./*.sh
 
-sleep 5s && TARGET_PORT=8022 ./socat.sh &
+# sleep 5s && TARGET_PORT=8022 ./socat.sh &
 
-# sleep 5s && TARGET_PORT=9022 ./socat2.sh &
+sleep 5s && TARGET_PORT=9022 ./socat2.sh &
 
 # sleep 10s && TARGET_PORT=10022 ./piping-tunnel.sh &
 
