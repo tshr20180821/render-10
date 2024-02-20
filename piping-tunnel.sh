@@ -9,10 +9,12 @@ curl -sSo dropbox.deb https://www.dropbox.com/download?dl=packages/debian/dropbo
 dpkg -i dropbox.deb
 rm dropbox.deb
 
+find / -name dropboxd -print 2>/dev/null
+
 curl -sSLO https://github.com/nwtgck/go-piping-tunnel/releases/download/v0.10.2/piping-tunnel-0.10.2-linux-amd64.deb
 dpkg -i piping-tunnel-0.10.2-linux-amd64.deb
 
-PIPING_SERVER=https://ppng.io
+# PIPING_SERVER=https://ppng.io
 
 # AUTH=$(echo -n "${BASIC_USER}:${BASIC_PASSWORD}" | base64)
 AUTH=
