@@ -17,9 +17,9 @@ echo "KEYWORD : ${KEYWORD}"
   echo "socat -4 tcp4-listen:8022,bind=127.0.0.1 'exec:curl ${AUTH} --http1.1 -NsS ${PIPING_SERVER}/${KEYWORD}res!!exec:curl ${AUTH} --http1.1 -NsST - ${PIPING_SERVER}/${KEYWORD}req' &"; \
   echo "set -H"; \
   echo "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt"; \
-}  >/var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.txt
+}  >/var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}_1.txt
 
-MESSAGE="curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.txt >info.txt"
+MESSAGE="curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}_1.txt >info.txt"
 
 curl -sS -X POST -H "Authorization: Bearer ${SLACK_TOKEN}" -H "Content-Type: application/json" \
   -d "{\"channel\":\"${SLACK_CHANNEL}\",\"text\":\"${MESSAGE}\"}" https://slack.com/api/chat.postMessage >/dev/null
