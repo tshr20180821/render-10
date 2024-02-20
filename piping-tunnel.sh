@@ -15,6 +15,8 @@ find / -name dropboxd -print 2>/dev/null
 
 /usr/src/app/.dropbox-dist/dropboxd --help
 
+cat /tmp/dropbox_error*.txt
+
 DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   megatools
 
