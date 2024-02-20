@@ -4,7 +4,7 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-curl -sSo dropbox.deb https://www.dropbox.com/download?dl=packages/debian/dropbox_2024.01.22_amd64.deb
+curl -sSLo dropbox.deb https://www.dropbox.com/download?dl=packages/debian/dropbox_2024.01.22_amd64.deb
 
 dpkg -i dropbox.deb
 rm dropbox.deb
