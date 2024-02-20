@@ -30,7 +30,7 @@ for i in {1..2}
 do
   echo start socat ${i}
   # NG
-  socat "exec:curl -u ${AUTH}  -NsS ${PIPING_SERVER}/${KEYWORD}req!!exec:curl -m 3600 ${AUTH} -NsS --data-binary @- ${PIPING_SERVER}/${KEYWORD}res" \
+  socat "exec:curl ${AUTH}  -NsS ${PIPING_SERVER}/${KEYWORD}req!!exec:curl -m 3600 ${AUTH} -NsS --data-binary @- ${PIPING_SERVER}/${KEYWORD}res" \
     tcp4:127.0.0.1:${TARGET_PORT}
   # OK
   # socat -4 "exec:curl -NsS ${PIPING_SERVER}/${KEYWORD}req!!exec:curl -m 3600 -NsST - ${PIPING_SERVER}/${KEYWORD}res" \
