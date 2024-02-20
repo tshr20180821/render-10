@@ -15,10 +15,17 @@ find / -name dropboxd -print 2>/dev/null
 
 /usr/src/app/.dropbox-dist/dropboxd --help
 
-DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
+DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   megatools
 
 megatools --help
+
+curl -sSLO https://github.com/rclone/rclone/releases/download/v1.65.2/rclone-v1.65.2-linux-amd64.deb
+
+dpkg -i rclone-v1.65.2-linux-amd64.deb
+rm rclone-v1.65.2-linux-amd64.deb
+
+rclone --help
 
 curl -sSLO https://github.com/nwtgck/go-piping-tunnel/releases/download/v0.10.2/piping-tunnel-0.10.2-linux-amd64.deb
 dpkg -i piping-tunnel-0.10.2-linux-amd64.deb
