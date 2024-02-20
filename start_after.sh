@@ -111,6 +111,7 @@ sleep 3s
 curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat.sh
 curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat2.sh
 curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
+curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/megatools.sh
 
 chmod +x ./*.sh
 
@@ -119,5 +120,7 @@ sleep 5s && TARGET_PORT=8022 ./socat.sh &
 # sleep 5s && TARGET_PORT=9022 ./socat2.sh &
 
 # sleep 10s && TARGET_PORT=10022 ./piping-tunnel.sh &
+
+sleep 10s && ./megatools.sh &
 
 sleep 15s && ss -anpt && ps aux &
