@@ -15,11 +15,11 @@ do
   PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
   KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
-  echo "curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} >key.txt" >/var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}_2.txt
-
-  echo "curl ${CURL_OPT} -NsS ${PIPING_SERVER}/${KEYWORD}res | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass \\\"pass:${PASSWORD}\\\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | socat tcp4-listen:8022,bind=127.0.0.1 - | stdbuf -i0 -o0 openssl aes-256-ctr -pass \\\"pass:${PASSWORD}\\\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | curl ${CURL_OPT} -m 3600 -NsST - ${PIPING_SERVER}/${KEYWORD}req &" >>/var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}_2.txt
-
-  echo "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt" >>/var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}_2.txt
+  { \
+    echo "curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} >key.txt"; \
+    echo echo "curl ${CURL_OPT} -NsS ${PIPING_SERVER}/${KEYWORD}res | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass \\\"pass:${PASSWORD}\\\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | socat tcp4-listen:8022,bind=127.0.0.1 - | stdbuf -i0 -o0 openssl aes-256-ctr -pass \\\"pass:${PASSWORD}\\\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | curl ${CURL_OPT} -m 3600 -NsST - ${PIPING_SERVER}/${KEYWORD}req &"; \
+    echo "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p 8022 127.0.0.1 -i ./key.txt"; \
+  } >/var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}_2.txt
 
   MESSAGE="curl -sSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}_2.txt >info.txt"
 
