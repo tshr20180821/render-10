@@ -57,14 +57,14 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   vim \
   >/dev/null
 
-ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
+# ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 export SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 16 | head -n 1)
 SSH_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
 # ls -lang /etc/ssh/sshd_config.d/
 
 mkdir /var/run/sshd
-echo "root:${ROOT_PASSWORD}" | chpasswd
+# echo "root:${ROOT_PASSWORD}" | chpasswd
 
 export NOTVISIBLE='in users profile'
 echo 'export VISIBLE=now' >> /etc/profile
@@ -74,7 +74,7 @@ cp /etc/profile /var/www/html/auth/profile.txt
 useradd -b /home -m -N -s /bin/bash ${SSH_USER}
 echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
 usermod -aG users ${SSH_USER}
-# usermod -aG sudo ${SSH_USER}
+# usermod -aG root ${SSH_USER}
 
 mkdir -p /home/${SSH_USER}/.ssh
 chmod 700 /home/${SSH_USER}/.ssh
