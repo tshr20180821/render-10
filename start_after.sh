@@ -15,30 +15,12 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
   aria2 \
   >/dev/null
 
-DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
+DEBIAN_FRONTEND=noninteractive apt-fast -qq install -y --no-install-recommends \
   build-essential \
   curl \
   distcc \
   gcc-x86-64-linux-gnu \
-  iproute2
-
-# 72 : 12h
-# for i in {1..72}; do \
-#  for j in {1..10}; do sleep 60s && echo "${i} ${j}"; done \
-#   && ss -anpt \
-#   && ps aux \
-#   && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
-# done &
-for i in {1..2}; do \
-  for j in {1..10}; do \
-    sleep 60s \
-     && echo "${i} ${j}" \
-     && curl -sS ${PIPING_SERVER}/help >/dev/null 2>&1; \
-  done \
-   && ss -anpt \
-   && ps aux \
-   && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
-done &
+  iproute2 >/dev/null
 
 # distccd
 
@@ -53,16 +35,16 @@ chmod 666 ${DISTCCD_LOG_FILE}
 # sshd
 
 if [ ! -z "${PIPING_SERVER}" ]; then
-  curl -sS ${PIPING_SERVER}/help
+  curl -sS ${PIPING_SERVER}/help &
 fi
 
-DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
+DEBIAN_FRONTEND=noninteractive apt-fast -qq install -y --no-install-recommends \
   dropbear \
   jq \
   less \
   openssh-server \
   socat \
-  vim
+  vim >/dev/null &
 
 # ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 export SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 16 | head -n 1)
@@ -86,9 +68,11 @@ usermod -aG users ${SSH_USER}
 mkdir -p /home/${SSH_USER}/.ssh
 chmod 700 /home/${SSH_USER}/.ssh
 
+wait
+
 ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t rsa -N ""
 
-ls -lang /home/${SSH_USER}/.ssh/
+# ls -lang /home/${SSH_USER}/.ssh/
 
 # mkdir -p /root/.ssh
 # cp /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.pub /root/.ssh/
@@ -105,7 +89,7 @@ chmod 666 /var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}
 
 dropbear --help
 ls -lang /etc/dropbear/
-/usr/sbin/dropbear -Esp 127.0.0.1:8022 -p 127.0.0.1:9022 -p 127.0.0.1:10022
+/usr/sbin/dropbear -Eswp 127.0.0.1:8022 -p 127.0.0.1:9022 -p 127.0.0.1:10022
 
 curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
@@ -131,3 +115,21 @@ sleep 5s && TARGET_PORT=9022 ./socat2.sh &
 sleep 10s && ./megatools.sh &
 
 sleep 15s && ss -anpt && ps aux &
+
+# 72 : 12h
+# for i in {1..72}; do \
+#  for j in {1..10}; do sleep 60s && echo "${i} ${j}"; done \
+#   && ss -anpt \
+#   && ps aux \
+#   && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
+# done &
+for i in {1..2}; do \
+  for j in {1..10}; do \
+    sleep 60s \
+     && echo "${i} ${j}" \
+     && curl -sS ${PIPING_SERVER}/help >/dev/null 2>&1; \
+  done \
+   && ss -anpt \
+   && ps aux \
+   && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
+done &
