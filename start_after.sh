@@ -6,7 +6,7 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
 # apt
 
-cat /etc/apt/sources.list
+ls -lang /etc/apt/
 
 DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
   build-essential \
