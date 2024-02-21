@@ -58,7 +58,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   >/dev/null
 
 ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
-export SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 8 | head -n 1)
+export SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 16 | head -n 1)
 SSH_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
 # ls -lang /etc/ssh/sshd_config.d/
