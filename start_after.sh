@@ -15,12 +15,12 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
   aria2 \
   >/dev/null
 
-DEBIAN_FRONTEND=noninteractive apt-fast -qq install -y --no-install-recommends \
+DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   build-essential \
   curl \
   distcc \
   gcc-x86-64-linux-gnu \
-  iproute2 >/dev/null
+  iproute2
 
 # distccd
 
@@ -38,13 +38,13 @@ if [ ! -z "${PIPING_SERVER}" ]; then
   curl -sS ${PIPING_SERVER}/help &
 fi
 
-DEBIAN_FRONTEND=noninteractive apt-fast -qq install -y --no-install-recommends \
+DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   dropbear \
   jq \
   less \
   openssh-server \
   socat \
-  vim >/dev/null &
+  vim &
 
 # ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 export SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 16 | head -n 1)
