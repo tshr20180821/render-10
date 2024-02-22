@@ -26,8 +26,6 @@ echo "Username = ${MEGA_EMAIL}" >>/root/.megarc
 echo "Password = ${MEGA_PASSWORD}" >>/root/.megarc
 
 megatools --help
-megatools reg --help
-megatools ls --help
 megatools df --help
-megatools df
+megatools ls --help
 megatools ls
