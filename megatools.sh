@@ -28,4 +28,6 @@ echo "Password = ${MEGA_PASSWORD}" >>/root/.megarc
 megatools --help
 megatools df --help
 megatools ls --help
-megatools ls
+megatools mkdir --help
+megatools mkdir /Root/${RENDER_EXTERNAL_HOSTNAME}
+megatools ls -l /Root/${RENDER_EXTERNAL_HOSTNAME}
