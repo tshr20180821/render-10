@@ -88,6 +88,7 @@ cp /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} /var/www/html/
 chmod 666 /var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}
 
 dropbear --help
+dropbearkey -t dss -f /etc/dropbear/dropbear_dss_host_key
 ls -lang /etc/dropbear/
 /usr/sbin/dropbear -Eswp 127.0.0.1:8022 -p 127.0.0.1:9022 -p 127.0.0.1:10022
 
