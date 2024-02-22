@@ -31,3 +31,14 @@ megatools ls --help
 megatools mkdir --help
 megatools mkdir /Root/${RENDER_EXTERNAL_HOSTNAME}
 megatools ls -l /Root/${RENDER_EXTERNAL_HOSTNAME}
+
+echo "DUMMY" >./dummy.txt
+
+megatools put --path /Root/${RENDER_EXTERNAL_HOSTNAME}/ dummy.txt
+megatools ls -l /Root/${RENDER_EXTERNAL_HOSTNAME}
+
+rm ./dummy.txt
+
+megatools get --path  /Root/${RENDER_EXTERNAL_HOSTNAME}/
+
+ls -lang
