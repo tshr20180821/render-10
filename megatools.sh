@@ -18,15 +18,15 @@ echo "Password = ${MEGA_PASSWORD}" >>/root/.megarc
 
 megatools ls -l /Root/dummydir
 megatools mkdir /Root/${RENDER_EXTERNAL_HOSTNAME}
-megatools ls -l /Root/${RENDER_EXTERNAL_HOSTNAME}
+megatools ls -l /Root/${RENDER_EXTERNAL_HOSTNAME}/
 
-echo "DUMMY" >./dummy.txt
+echo "DUMMY2" >./dummy.txt
 
 megatools put --path /Root/${RENDER_EXTERNAL_HOSTNAME}/ dummy.txt
 megatools ls -l /Root/${RENDER_EXTERNAL_HOSTNAME}/
 
 rm ./dummy.txt
 
-megatools get --path  /Root/${RENDER_EXTERNAL_HOSTNAME}/
+megatools get --path /Root/${RENDER_EXTERNAL_HOSTNAME}/
 
 ls -lang
