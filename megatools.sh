@@ -16,6 +16,7 @@ echo "[Login]" >/root/.megarc
 echo "Username = ${MEGA_EMAIL}" >>/root/.megarc
 echo "Password = ${MEGA_PASSWORD}" >>/root/.megarc
 
+megatools ls -l /Root/dummydir
 megatools mkdir /Root/${RENDER_EXTERNAL_HOSTNAME}
 megatools ls -l /Root/${RENDER_EXTERNAL_HOSTNAME}
 
