@@ -21,7 +21,13 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): '
 DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   megatools
 
+echo "[Login]" >/root/.megarc
+echo "Username = ${MEGA_EMAIL}" >>/root/.megarc
+echo "Password = ${MEGA_PASSWORD}" >>/root/.megarc
+
 megatools --help
 megatools reg --help
+megatools ls --help
 megatools df --help
-megatools df --username ${MEGA_EMAIL} --password ${MEGA_PASSWORD}
+megatools df
+megatools ls
