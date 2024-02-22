@@ -7,7 +7,7 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): '
 # apt
 
 apt-get -qq update \
-  && DEBIAN_FRONTEND=noninteractive apt-get -y install dnsutils >/dev/null &
+  && DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends dnsutils >/dev/null &
 
 # apache setting
 
