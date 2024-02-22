@@ -23,4 +23,5 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 
 megatools --help
 megatools reg --help
-megatools reg -e ${MEGA_EMAIL} -p ${MEGA_PASSWORD} -n ${MEGA_NAME} --register
+megatools df --help
+megatools df --username ${MEGA_EMAIL} --password ${MEGA_PASSWORD}
