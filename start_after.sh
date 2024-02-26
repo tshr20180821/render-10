@@ -47,8 +47,6 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   telnetd \
   vim &
 
-telnetd --help
-
 # ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 export SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 16 | head -n 1)
 SSH_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
@@ -72,6 +70,10 @@ mkdir -p /home/${SSH_USER}/.ssh
 chmod 700 /home/${SSH_USER}/.ssh
 
 wait
+
+telnetd --help
+
+telnetd -4h -a valid -debug 8023 &
 
 ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t rsa -N ""
 
