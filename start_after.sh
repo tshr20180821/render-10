@@ -78,6 +78,12 @@ find / -name telnetd -print 2>/dev/null
 update-rc.d --help
 
 cat /etc/inetd.conf
+cat /etc/services
+
+sed 's/#<off># telnet/telnet/' /etc/inetd.conf
+cat /etc/inetd.conf
+
+update-rc.d telnet enable
 
 # /usr/sbin/in.telnetd -h -a valid -debug 8023 &
 
