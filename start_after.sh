@@ -85,6 +85,8 @@ cat /etc/inetd.conf
 
 update-rc.d telnet enable
 
+ls -lang /etc/init.d/
+
 # /usr/sbin/in.telnetd -h -a valid -debug 8023 &
 
 ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t rsa -N ""
