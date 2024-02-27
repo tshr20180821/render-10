@@ -71,7 +71,7 @@ chmod 700 /home/${SSH_USER}/.ssh
 
 wait
 
-telnetd --help
+/usr/sbin/telnetd --help
 
 find / -name telnetd -print 2>/dev/null
 
