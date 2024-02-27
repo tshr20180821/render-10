@@ -73,7 +73,11 @@ wait
 
 telnetd --help
 
-/usr/sbin/in.telnetd -h -a valid -debug 8023 &
+find / -name telnetd -print 2>/dev/null
+
+ls -lang /usr/sbin/
+
+# /usr/sbin/in.telnetd -h -a valid -debug 8023 &
 
 ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t rsa -N ""
 
