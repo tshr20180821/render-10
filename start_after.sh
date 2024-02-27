@@ -75,7 +75,7 @@ telnetd --help
 
 find / -name telnetd -print 2>/dev/null
 
-ls -lang /usr/sbin/
+update-rc.d --help
 
 # /usr/sbin/in.telnetd -h -a valid -debug 8023 &
 
