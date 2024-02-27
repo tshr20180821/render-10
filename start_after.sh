@@ -77,6 +77,8 @@ find / -name telnetd -print 2>/dev/null
 
 update-rc.d --help
 
+cat /etc/inetd.conf
+
 # /usr/sbin/in.telnetd -h -a valid -debug 8023 &
 
 ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t rsa -N ""
