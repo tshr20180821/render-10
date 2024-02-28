@@ -101,7 +101,7 @@ EOF
 
 cat /etc/xinetd.d/telnet
 
-XINETD_OPTS=-d /etc/init.d/xinetd restart
+/etc/init.d/xinetd restart
 
 ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t rsa -N ""
 
