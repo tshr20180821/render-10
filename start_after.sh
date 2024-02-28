@@ -49,7 +49,8 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   socat \
   systemctl \
   telnetd \
-  vim &
+  vim \
+  xinetd &
 
 # ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 export SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 16 | head -n 1)
