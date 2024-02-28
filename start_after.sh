@@ -44,6 +44,7 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   less \
   openssh-server \
   socat \
+  systemctl \
   telnetd \
   vim &
 
