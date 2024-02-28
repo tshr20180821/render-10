@@ -6,7 +6,7 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
 # apt
 
-curl -sSL -o /usr/local/sbin/apt-fast https://raw.githubusercontent.com/ilikenwf/apt-fast/master/apt-fast
+curl -sSLo /usr/local/sbin/apt-fast https://raw.githubusercontent.com/ilikenwf/apt-fast/master/apt-fast
 chmod +x /usr/local/sbin/apt-fast
 
 echo "MIRRORS=('http://deb.debian.org/debian','http://ftp.debian.org/debian,http://ftp2.de.debian.org/debian,http://ftp.de.debian.org/debian,ftp://ftp.uni-kl.de/debian')" >/etc/apt-fast.conf
@@ -24,7 +24,7 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
 
 # distccd
 
-curl -sSL -o /var/www/html/auth/distccd.php https://github.com/tshr20180821/render-10/raw/main/distccd.php &
+curl -sSLo /var/www/html/auth/distccd.php https://github.com/tshr20180821/render-10/raw/main/distccd.php &
 
 DISTCCD_LOG_FILE=/var/www/html/auth/distccd_log.txt
 touch ${DISTCCD_LOG_FILE}
@@ -33,8 +33,6 @@ chmod 666 ${DISTCCD_LOG_FILE}
 /usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=$(($(nproc)/2)) --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180
 
 # sshd
-
-apt-cache search telnet | sort
 
 if [ ! -z "${PIPING_SERVER}" ]; then
   curl -sS ${PIPING_SERVER}/help &
@@ -75,13 +73,7 @@ chmod 700 /home/${SSH_USER}/.ssh
 
 wait
 
-/usr/sbin/telnetd --help
-
-# find / -name telnetd -print 2>/dev/null
-
-# update-rc.d --help
-
-ls -lang /etc/xinetd.d
+# /usr/sbin/telnetd --help
 
 cat << EOF >/etc/xinetd.d/telnet
 service telnet
@@ -95,24 +87,11 @@ service telnet
   disable         = no
   bind            = 127.0.0.1
   port            = 8023
+  server_args     = -h -a valid
 }
 EOF
 
-cat /etc/xinetd.d/telnet
-
 /etc/init.d/xinetd restart
-
-# cat /etc/inetd.conf
-# cat /etc/services
-
-# sed 's/#<off># telnet/telnet/' /etc/inetd.conf
-# cat /etc/inetd.conf
-
-# update-rc.d telnet enable
-
-# systemctl status inetd
-
-# /usr/sbin/in.telnetd -h -a valid -debug 8023 &
 
 ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t rsa -N ""
 
@@ -144,9 +123,9 @@ curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0
 
 sleep 3s
 
-curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat.sh
-curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/socat2.sh
-curl -sSL -O https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
+curl -sSLO https://github.com/tshr20180821/render-10/raw/main/socat.sh
+curl -sSLO https://github.com/tshr20180821/render-10/raw/main/socat2.sh
+curl -sSLO https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
 
 chmod +x ./*.sh
 
