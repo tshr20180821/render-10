@@ -84,15 +84,17 @@ wait
 ls -lang /etc/xinetd.d
 
 cat << EOF >/etc/xinetd.d/telnet
-service telnet 
-{ 
-  flags           = REUSE 
-  socket_type     = stream 
-  wait            = no 
-  user            = root 
-  server          = /usr/sbin/telnetd 
-  log_on_failure  += USERID 
+service telnet
+{
+  flags           = REUSE
+  socket_type     = stream
+  wait            = no
+  user            = root
+  server          = /usr/sbin/telnetd
+  log_on_failure  += USERID
   disable         = no
+  bind            = 127.0.0.1
+  port            = 8023
 }
 EOF
 
