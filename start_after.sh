@@ -24,6 +24,7 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
 
 # distccd
 
+# MARK 01
 curl -sSLo /var/www/html/auth/distccd.php https://github.com/tshr20180821/render-10/raw/main/distccd.php &
 
 DISTCCD_LOG_FILE=/var/www/html/auth/distccd_log.txt
@@ -35,9 +36,11 @@ chmod 666 ${DISTCCD_LOG_FILE}
 # sshd
 
 if [ ! -z "${PIPING_SERVER}" ]; then
+  # MARK 02
   curl -sS ${PIPING_SERVER}/help &
 fi
 
+# MARK 03
 DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   dropbear \
   jq \
@@ -70,10 +73,6 @@ usermod -aG users ${SSH_USER}
 mkdir -p /home/${SSH_USER}/.ssh
 chmod 700 /home/${SSH_USER}/.ssh
 
-wait
-
-# /usr/sbin/telnetd --help
-
 cat << EOF >/etc/xinetd.d/telnet
 service telnet
 {
@@ -93,13 +92,15 @@ service telnet
 EOF
 
 cat /etc/xinetd.d/telnet
-cat /etc/xinetd.conf
 
 ln -sfT /dev/stdout /var/log/xinetd.log
 
-cat /etc/init.d/xinetd
+# MARK 01 02 03
+wait
 
-/etc/init.d/xinetd restart
+# /usr/sbin/telnetd --help
+
+XINETD_OPTS="-filelog /var/log/xinetd.log" /etc/init.d/xinetd restart
 
 ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t rsa -N ""
 
