@@ -40,7 +40,7 @@ if [ ! -z "${PIPING_SERVER}" ]; then
   curl -sS ${PIPING_SERVER}/help &
 fi
 
-DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
+DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   dropbear \
   inetutils-inetd \
   jq \
