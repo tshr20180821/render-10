@@ -86,8 +86,11 @@ service telnet
   log_on_failure  += USERID
   disable         = no
   server_args     = -h -a valid
+  log_type        = FILE /var/log/xinetd.log
 }
 EOF
+
+ln -sfT /dev/stdout /var/log/xinetd.log
 
 /etc/init.d/xinetd restart
 
