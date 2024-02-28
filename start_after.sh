@@ -85,6 +85,7 @@ service telnet
   log_on_failure  += USERID
   disable         = no
   server_args     = -h -a valid
+  bind            = 127.0.0.1
   only_from       = 127.0.0.1
   log_type        = FILE /var/log/xinetd.log
   log_on_success  = HOST PID
@@ -93,8 +94,6 @@ service telnet
 EOF
 
 cat /etc/xinetd.d/telnet
-
-cat /etc/protocols
 
 ln -sfT /dev/stdout /var/log/xinetd.log
 
