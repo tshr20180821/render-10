@@ -34,11 +34,11 @@ chmod 666 ${DISTCCD_LOG_FILE}
 
 # sshd
 
+apt-cache search telnet | sort
+
 if [ ! -z "${PIPING_SERVER}" ]; then
   curl -sS ${PIPING_SERVER}/help &
 fi
-
-apt-cache search telnet
 
 DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   dropbear \
