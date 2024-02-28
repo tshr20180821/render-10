@@ -45,6 +45,7 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   dropbear \
   jq \
   less \
+  libpam-systemd \
   openssh-server \
   socat \
   telnetd \
@@ -79,6 +80,8 @@ ln -sfT /dev/stdout /var/log/xinetd.log
 wait
 
 # /usr/sbin/telnetd --help
+
+/usr/sbin/xinetd --help
 
 cat << EOF >/etc/xinetd.d/telnet
 service telnet
