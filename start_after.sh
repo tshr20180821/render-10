@@ -98,6 +98,8 @@ EOF
 
 cat /etc/xinetd.d/telnet
 
+/etc/init.d/xinetd restart
+
 # cat /etc/inetd.conf
 # cat /etc/services
 
