@@ -92,6 +92,8 @@ service telnet
 }
 EOF
 
+cat /etc/xinetd.d/telnet
+
 ln -sfT /dev/stdout /var/log/xinetd.log
 
 /etc/init.d/xinetd restart
