@@ -74,7 +74,7 @@ usermod -aG users ${SSH_USER}
 mkdir -p /home/${SSH_USER}/.ssh
 chmod 700 /home/${SSH_USER}/.ssh
 
-ln -sfT /dev/stdout /var/log/xinetd.log
+ln -sfT /dev/stdout /var/log/telnetd.log
 
 # MARK 01 02 03
 wait
@@ -97,7 +97,7 @@ service telnet
   server_args     = -h -a valid
   bind            = 127.0.0.1
   only_from       = 127.0.0.1
-  log_type        = FILE /var/log/xinetd.log
+  log_type        = FILE /var/log/telnetd.log
 }
 EOF
 
