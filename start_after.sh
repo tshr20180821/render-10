@@ -80,19 +80,19 @@ wait
 
 # find / -name telnetd -print 2>/dev/null
 
-update-rc.d --help
+# update-rc.d --help
 
-cat /etc/inetd.conf
+ls -lang /etc/xinetd.d
+
+# cat /etc/inetd.conf
 # cat /etc/services
 
-sed 's/#<off># telnet/telnet/' /etc/inetd.conf
-cat /etc/inetd.conf
+# sed 's/#<off># telnet/telnet/' /etc/inetd.conf
+# cat /etc/inetd.conf
 
-update-rc.d telnet enable
+# update-rc.d telnet enable
 
-ls -lang /etc/init.d/
-
-systemctl status inetd
+# systemctl status inetd
 
 # /usr/sbin/in.telnetd -h -a valid -debug 8023 &
 
