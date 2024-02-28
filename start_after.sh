@@ -88,7 +88,7 @@ service telnet
   log_type        = FILE /var/log/xinetd.log
   log_on_success  = HOST PID
   log_on_failure  = HOST RECORD
-  port            = 8023
+  bind            = 127.0.0.1
 }
 EOF
 
