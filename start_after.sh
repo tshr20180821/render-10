@@ -81,8 +81,6 @@ wait
 
 # /usr/sbin/telnetd --help
 
-/usr/sbin/xinetd --help
-
 cat << EOF >/etc/xinetd.d/telnet
 service telnet
 {
