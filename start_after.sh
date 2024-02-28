@@ -92,6 +92,8 @@ cat /etc/init.d/distcc
 cat /etc/init.d/dropbear
 cat /etc/init.d/ssh
 
+systemctl status inetd
+
 # /usr/sbin/in.telnetd -h -a valid -debug 8023 &
 
 ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t rsa -N ""
