@@ -73,6 +73,13 @@ usermod -aG users ${SSH_USER}
 mkdir -p /home/${SSH_USER}/.ssh
 chmod 700 /home/${SSH_USER}/.ssh
 
+ln -sfT /dev/stdout /var/log/xinetd.log
+
+# MARK 01 02 03
+wait
+
+# /usr/sbin/telnetd --help
+
 cat << EOF >/etc/xinetd.d/telnet
 service telnet
 {
@@ -92,13 +99,6 @@ service telnet
 EOF
 
 cat /etc/xinetd.d/telnet
-
-ln -sfT /dev/stdout /var/log/xinetd.log
-
-# MARK 01 02 03
-wait
-
-# /usr/sbin/telnetd --help
 
 XINETD_OPTS=-d /etc/init.d/xinetd restart
 
