@@ -84,6 +84,8 @@ wait
 
 ls -lang /etc/xinetd.d
 
+cat /etc/xinetd.d/telnet
+
 # cat /etc/inetd.conf
 # cat /etc/services
 
