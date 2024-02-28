@@ -100,7 +100,7 @@ wait
 
 # /usr/sbin/telnetd --help
 
-XINETD_OPTS="-filelog /var/log/xinetd.log" /etc/init.d/xinetd restart
+XINETD_OPTS=-d /etc/init.d/xinetd restart
 
 ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t rsa -N ""
 
