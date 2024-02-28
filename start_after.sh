@@ -88,11 +88,13 @@ service telnet
   log_type        = FILE /var/log/xinetd.log
   log_on_success  = HOST PID
   log_on_failure  = HOST RECORD
-  bind            = 127.0.0.1
+  only_from       = 127.0.0.1
 }
 EOF
 
 cat /etc/xinetd.d/telnet
+
+cat /etc/protocols
 
 ln -sfT /dev/stdout /var/log/xinetd.log
 
