@@ -40,6 +40,7 @@ fi
 
 DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   dropbear \
+  inetutils-inetd \
   jq \
   less \
   openssh-server \
