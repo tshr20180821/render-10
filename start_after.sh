@@ -85,8 +85,6 @@ service telnet
   server          = /usr/sbin/telnetd
   log_on_failure  += USERID
   disable         = no
-  bind            = 127.0.0.1
-  port            = 8023
   server_args     = -h -a valid
 }
 EOF
