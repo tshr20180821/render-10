@@ -86,6 +86,9 @@ service telnet
   disable         = no
   server_args     = -h -a valid
   only_from       = 127.0.0.1
+  log_type        = FILE /var/log/xinetd.log
+  log_on_success  = HOST PID
+  log_on_failure  = HOST
 }
 EOF
 
