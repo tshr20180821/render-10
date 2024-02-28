@@ -83,6 +83,19 @@ wait
 
 ls -lang /etc/xinetd.d
 
+cat << EOF >/etc/xinetd.d/telnet
+service telnet 
+{ 
+  flags           = REUSE 
+  socket_type     = stream 
+  wait            = no 
+  user            = root 
+  server          = /usr/sbin/telnetd 
+  log_on_failure  += USERID 
+  disable         = no
+}
+EOF
+
 cat /etc/xinetd.d/telnet
 
 # cat /etc/inetd.conf
