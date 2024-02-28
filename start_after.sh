@@ -89,11 +89,6 @@ update-rc.d telnet enable
 
 ls -lang /etc/init.d/
 
-cat /etc/init.d/apache2
-cat /etc/init.d/distcc
-cat /etc/init.d/dropbear
-cat /etc/init.d/ssh
-
 systemctl status inetd
 
 # /usr/sbin/in.telnetd -h -a valid -debug 8023 &
