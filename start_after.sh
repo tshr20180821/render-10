@@ -85,9 +85,6 @@ service telnet
   log_on_failure  += USERID
   disable         = no
   server_args     = -h -a valid
-  log_type        = FILE /var/log/xinetd.log
-  log_on_success  = HOST PID
-  log_on_failure  = HOST RECORD
   only_from       = 127.0.0.1
 }
 EOF
