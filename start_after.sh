@@ -44,7 +44,6 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   less \
   openssh-server \
   socat \
-  systemctl \
   telnetd \
   vim \
   xinetd &
@@ -87,6 +86,9 @@ service telnet
   disable         = no
   server_args     = -h -a valid
   log_type        = FILE /var/log/xinetd.log
+  log_on_success  = HOST PID
+  log_on_failure  = HOST RECORD
+  port            = 8023
 }
 EOF
 
