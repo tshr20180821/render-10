@@ -78,12 +78,12 @@ wait
 
 /usr/sbin/telnetd --help
 
-find / -name telnetd -print 2>/dev/null
+# find / -name telnetd -print 2>/dev/null
 
 update-rc.d --help
 
 cat /etc/inetd.conf
-cat /etc/services
+# cat /etc/services
 
 sed 's/#<off># telnet/telnet/' /etc/inetd.conf
 cat /etc/inetd.conf
