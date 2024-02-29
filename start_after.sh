@@ -69,8 +69,8 @@ cp /etc/profile /var/www/html/auth/profile.txt
 # useradd -b /home -m -s /bin/bash ${SSH_USER}
 useradd -b /home -m -N -s /bin/bash ${SSH_USER}
 echo "${SSH_USER}:${SSH_PASSWORD}" | chpasswd
-usermod -aG users ${SSH_USER}
-# usermod -aG root ${SSH_USER}
+# usermod -aG users ${SSH_USER}
+usermod -aG root ${SSH_USER}
 
 mkdir -p /home/${SSH_USER}/.ssh
 chmod 700 /home/${SSH_USER}/.ssh
