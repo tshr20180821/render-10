@@ -92,7 +92,6 @@ service telnet
   log_on_success  = HOST PID USERID
   log_on_failure  = HOST USERID
   disable         = no
-  server_args     = -h -a valid
   bind            = 127.0.0.1
   only_from       = 127.0.0.1
   log_type        = FILE /var/log/telnetd.log
