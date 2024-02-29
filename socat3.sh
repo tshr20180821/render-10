@@ -4,7 +4,7 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-# PIPING_SERVER=https://ppng.io
+PIPING_SERVER=https://ppng.io
 CURL_OPT=
 # PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping
 # PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping_rust
