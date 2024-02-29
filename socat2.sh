@@ -30,7 +30,7 @@ do
 
   curl ${CURL_OPT} -sSN ${PIPING_SERVER}/${KEYWORD}req \
    | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
-   | socat tcp4:127.0.0.1:${TARGET_PORT} - \
+   | socat - tcp4:127.0.0.1:${TARGET_PORT} \
    | stdbuf -i0 -o0 openssl aes-256-ctr -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
    | curl ${CURL_OPT} -m 300 -sSNT - ${PIPING_SERVER}/${KEYWORD}res
 done
