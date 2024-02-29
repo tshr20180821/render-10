@@ -141,13 +141,13 @@ chmod +x ./*.sh
 
 # sleep 5s && TARGET_PORT=8022 ./socat.sh &
 
-# sleep 5s && TARGET_PORT=9022 ./socat2.sh &
+sleep 5s && TARGET_PORT=9022 ./socat2.sh &
 
-sleep 5s && TARGET_PORT=23 ./socat3.sh &
+sleep 10s && TARGET_PORT=23 ./socat3.sh &
 
 # sleep 10s && TARGET_PORT=10022 ./piping-tunnel.sh &
 
-sleep 10s && ss -anpt && ps aux &
+sleep 15s && ss -anpt && ps aux &
 
 # 72 : 12h
 # for i in {1..72}; do \
