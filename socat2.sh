@@ -4,11 +4,11 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-# PIPING_SERVER=https://ppng.io
-# CURL_OPT=
-PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping
+PIPING_SERVER=https://ppng.io
+CURL_OPT=
+# PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping
 # PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping_rust
-CURL_OPT="-u ${BASIC_USER}:${BASIC_PASSWORD} --http1.1"
+# CURL_OPT="-u ${BASIC_USER}:${BASIC_PASSWORD} --http1.1"
 
 for i in {1..2}
 do
