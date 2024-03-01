@@ -169,5 +169,5 @@ for i in {1..2}; do \
   done \
    && ss -anpt \
    && ps aux \
-   && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
+   && curl -sS -A "keep instance" -u "${BASIC_USER}":"${BASIC_PASSWORD}" https://"${RENDER_EXTERNAL_HOSTNAME}"/?$(date +%s); \
 done &

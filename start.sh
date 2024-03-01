@@ -36,7 +36,7 @@ htpasswd -c -b /var/www/html/.htpasswd "${BASIC_USER}" "${BASIC_PASSWORD}"
 chmod 644 /var/www/html/.htpasswd
 . /etc/apache2/envvars >/dev/null 2>&1
 
-curl -sSLO https://github.com/tshr20180821/render-10/raw/main/start_after.sh
+curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/start_after.sh?$(date +%s)
 
 chmod +x ./start_after.sh
 
