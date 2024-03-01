@@ -54,7 +54,7 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   xinetd &
 
 # ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
-export SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 16 | head -n 1)
+export SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 1 | head -n 1)$(tr -dc 'a-z0-9' </dev/urandom | fold -w 15 | head -n 1)
 export SSH_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
 # ls -lang /etc/ssh/sshd_config.d/
@@ -133,10 +133,10 @@ curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0
 
 sleep 3s
 
-curl -sSLO https://github.com/tshr20180821/render-10/raw/main/socat.sh
+# curl -sSLO https://github.com/tshr20180821/render-10/raw/main/socat.sh
 curl -sSLO https://github.com/tshr20180821/render-10/raw/main/socat2.sh
 curl -sSLO https://github.com/tshr20180821/render-10/raw/main/socat3.sh
-curl -sSLO https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
+# curl -sSLO https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
 
 chmod +x ./*.sh
 
