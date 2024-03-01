@@ -117,6 +117,8 @@ cat /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.pub >>/home/$
 
 chown -R ${SSH_USER}:users /home/${SSH_USER}
 
+PS1="[user@${RENDER_EXTERNAL_HOSTNAME//.onrender.com/} \w]\\$ " >>/home/${SSH_USER}/.bashrc
+
 ls -lang /home/${SSH_USER}
 cat /home/${SSH_USER}/.bashrc
 
