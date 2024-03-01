@@ -123,7 +123,8 @@ chmod 666 /var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}
 dropbear --help
 dropbearkey -t dss -f /etc/dropbear/dropbear_dss_host_key
 ls -lang /etc/dropbear/
-/usr/sbin/dropbear -Eswp 127.0.0.1:8022 -p 127.0.0.1:9022 -p 127.0.0.1:10022
+# /usr/sbin/dropbear -Eswp 127.0.0.1:8022 -p 127.0.0.1:9022 -p 127.0.0.1:10022
+/usr/sbin/dropbear -Eswp 127.0.0.1:8022
 
 curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
@@ -142,7 +143,7 @@ chmod +x ./*.sh
 
 # sleep 5s && TARGET_PORT=8022 ./socat.sh &
 
-sleep 5s && TARGET_PORT=9022 ./socat2.sh &
+sleep 5s && TARGET_PORT=8022 ./socat2.sh &
 
 sleep 10s && TARGET_PORT=23 ./socat3.sh &
 
