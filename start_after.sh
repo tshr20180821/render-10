@@ -10,7 +10,7 @@ curl -sSLo /usr/local/sbin/apt-fast https://raw.githubusercontent.com/ilikenwf/a
 chmod +x /usr/local/sbin/apt-fast
 
 # echo "MIRRORS=('http://deb.debian.org/debian','http://ftp.debian.org/debian,http://ftp2.de.debian.org/debian,http://ftp.de.debian.org/debian,ftp://ftp.uni-kl.de/debian')" >/etc/apt-fast.conf
-echo "MIRRORS=('http://deb.debian.org/debian','http://ftp.debian.org/debian,http://mirror.coganng.com/debian/,http://mirror.sg.gs/debian/,http://ossmirror.mycloud.services/debian/,http://kartolo.sby.datautama.net.id/debian/,http://kebo.pens.ac.id/debian/,http://mirror.poliwangi.ac.id/debian/,http://mirror.unair.ac.id/debian/,http://mr.heru.id/debian/')" >/etc/apt-fast.conf
+echo "MIRRORS=('http://deb.debian.org/debian','http://ftp.debian.org/debian,http://mirror.coganng.com/debian/,http://mirror.sg.gs/debian/,http://ossmirror.mycloud.services/debian/')" >/etc/apt-fast.conf
 
 DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
   aria2 \
