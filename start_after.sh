@@ -49,9 +49,12 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   libpam-systemd \
   openssh-server \
   socat \
+  sudo \
   telnetd \
   vim \
   xinetd &
+
+echo "root:rootpassword" | chpasswd
 
 # ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 export SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 1 | head -n 1)$(tr -dc 'a-z0-9' </dev/urandom | fold -w 15 | head -n 1)
