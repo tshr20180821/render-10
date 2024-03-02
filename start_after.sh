@@ -132,8 +132,8 @@ curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0
 sleep 3s
 
 # curl -sSLO https://github.com/tshr20180821/render-10/raw/main/socat.sh
-curl -sSLO https://github.com/tshr20180821/render-10/raw/main/socat2.sh
-curl -sSLO https://github.com/tshr20180821/render-10/raw/main/socat3.sh
+curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat2.sh?$(date +%s)
+curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat3.sh?$(date +%s)
 # curl -sSLO https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
 
 chmod +x ./*.sh
