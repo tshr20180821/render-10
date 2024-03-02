@@ -111,7 +111,7 @@ cat /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}.pub >>/home/$
 
 chown -R ${SSH_USER}:users /home/${SSH_USER}
 
-echo PS1="user@${RENDER_EXTERNAL_HOSTNAME//.onrender.com/}:\\w\\$ " >>/home/${SSH_USER}/.bashrc
+echo "PS1=\"user@${RENDER_EXTERNAL_HOSTNAME//.onrender.com/}:\\w\\$ \"" >>/home/${SSH_USER}/.bashrc
 cat /home/${SSH_USER}/.bashrc
 
 cp /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} /var/www/html/auth/
