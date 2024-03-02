@@ -18,7 +18,7 @@ do
   { \
     echo "#!/bin/sh";
     echo "curl ${CURL_OPT} -NsS ${PIPING_SERVER}/${KEYWORD}res | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass \"pass:${PASSWORD}\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | sudo socat tcp4-listen:23,bind=127.0.0.1 - | stdbuf -i0 -o0 openssl aes-256-ctr -pass \"pass:${PASSWORD}\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 | curl ${CURL_OPT} -m 3600 -NsST - ${PIPING_SERVER}/${KEYWORD}req &"; \
-    echo ${SSH_USER} ${SSH_PASSWORD}; \
+    echo "echo ${SSH_USER} ${SSH_PASSWORD}"; \
   } >/var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}_3.txt
 
   MESSAGE="curl -fsSu ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}_3.txt | sh"
