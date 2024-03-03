@@ -45,6 +45,7 @@ fi
 # MARK 03
 DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   dropbear \
+  expect \
   less \
   libpam-systemd \
   openssh-server \
@@ -82,6 +83,7 @@ ln -sfT /dev/stdout /var/log/telnetd.log
 # MARK 01 02 03
 wait
 
+expect --help
 # /usr/sbin/telnetd --help
 
 cat << EOF >/etc/xinetd.d/telnet
