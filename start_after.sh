@@ -141,6 +141,8 @@ curl -sSN https://ppng.io/${KEYWORD}req \
   | stdbuf -i0 -o0 openssl aes-256-ctr -pass "pass:none" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
   | curl -m 300 -sSNT - https://ppng.io/${KEYWORD}res &
 
+echo "${KEYWORD}" >/var/www/html/auth/keyword.txt
+
 # curl -sSLO https://github.com/tshr20180821/render-10/raw/main/socat.sh
 curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat2.sh?$(date +%s)
 curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat3.sh?$(date +%s)
