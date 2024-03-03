@@ -9,7 +9,6 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): '
 curl -sSLo /usr/local/sbin/apt-fast https://raw.githubusercontent.com/ilikenwf/apt-fast/master/apt-fast
 chmod +x /usr/local/sbin/apt-fast
 
-# echo "MIRRORS=('http://deb.debian.org/debian','http://ftp.debian.org/debian,http://ftp2.de.debian.org/debian,http://ftp.de.debian.org/debian,ftp://ftp.uni-kl.de/debian')" >/etc/apt-fast.conf
 echo "MIRRORS=('http://deb.debian.org/debian','http://ftp.debian.org/debian,http://mirror.coganng.com/debian/,http://mirror.sg.gs/debian/,http://ossmirror.mycloud.services/debian/,http://ftp.nara.wide.ad.jp/debian/,http://ftp.kddilabs.jp/pub/debian/,http://ftp.riken.jp/Linux/debian/debian/')" >/etc/apt-fast.conf
 
 DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
@@ -21,7 +20,9 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   curl \
   distcc \
   gcc-x86-64-linux-gnu \
-  iproute2
+  iproute2 \
+  openssl \
+  socat
 
 # distccd
 
@@ -34,6 +35,14 @@ chmod 666 ${DISTCCD_LOG_FILE}
 
 /usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=$(($(nproc)/2)) --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180
 
+KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
+
+curl -sSN https://ppng.io/${KEYWORD}req \
+  | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass "pass:none" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
+  | socat - tcp4:127.0.0.1:3632 \
+  | stdbuf -i0 -o0 openssl aes-256-ctr -pass "pass:none" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
+  | curl -m 300 -sSNT - https://ppng.io/${KEYWORD}res &
+
 # sshd
 
 if [ ! -z "${PIPING_SERVER}" ]; then
@@ -44,11 +53,9 @@ fi
 # MARK 03
 DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   dropbear \
-  jq \
   less \
   libpam-systemd \
   openssh-server \
-  socat \
   sudo \
   telnetd \
   vim \
