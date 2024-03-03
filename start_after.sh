@@ -35,14 +35,6 @@ chmod 666 ${DISTCCD_LOG_FILE}
 
 /usr/bin/distccd --port=3632 --listen=127.0.0.1 --user=nobody --jobs=$(($(nproc)/2)) --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180
 
-KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
-
-curl -sSN https://ppng.io/${KEYWORD}req \
-  | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass "pass:none" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
-  | socat - tcp4:127.0.0.1:3632 \
-  | stdbuf -i0 -o0 openssl aes-256-ctr -pass "pass:none" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
-  | curl -m 300 -sSNT - https://ppng.io/${KEYWORD}res &
-
 # sshd
 
 if [ ! -z "${PIPING_SERVER}" ]; then
@@ -140,6 +132,14 @@ curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0
 ./piping-server-x86_64-unknown-linux-musl/piping-server --host=127.0.0.1 --http-port=9080 &
 
 sleep 3s
+
+KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
+
+curl -sSN https://ppng.io/${KEYWORD}req \
+  | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass "pass:none" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
+  | socat - tcp4:127.0.0.1:3632 \
+  | stdbuf -i0 -o0 openssl aes-256-ctr -pass "pass:none" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
+  | curl -m 300 -sSNT - https://ppng.io/${KEYWORD}res &
 
 # curl -sSLO https://github.com/tshr20180821/render-10/raw/main/socat.sh
 curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat2.sh?$(date +%s)
