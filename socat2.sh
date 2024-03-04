@@ -17,8 +17,8 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 URL_RES=${PIPING_SERVER}/${KEYWORD}res
 URL_REQ=${PIPING_SERVER}/${KEYWORD}req
 if [ ! -z "${X_GD_APIKEY}" ]; then
-  URL_RES=$(curl https://xgd.io/V1/shorten?url=${PIPING_SERVER}/${KEYWORD}res&key=${X_GD_APIKEY}&analytics=false | jq '.shorturl')
-  URL_REQ=$(curl https://xgd.io/V1/shorten?url=${PIPING_SERVER}/${KEYWORD}req&key=${X_GD_APIKEY}&analytics=false | jq '.shorturl')
+  URL_RES=$(curl "https://xgd.io/V1/shorten?url=$(${PIPING_SERVER}/${KEYWORD}res | jq -Rr @uri)&key=${X_GD_APIKEY}&analytics=false" | jq '.shorturl')
+  URL_REQ=$(curl "https://xgd.io/V1/shorten?url=$(${PIPING_SERVER}/${KEYWORD}req | jq -Rr @uri)&key=${X_GD_APIKEY}&analytics=false" | jq '.shorturl')
 fi
 
 { \
