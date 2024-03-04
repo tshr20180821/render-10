@@ -50,6 +50,7 @@ fi
 DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   dropbear \
   expect \
+  jq \
   less \
   libpam-systemd \
   openssh-server \
