@@ -2,6 +2,8 @@
 
 set -x
 
+export PS4='+(${BASH_SOURCE}:${LINENO}): '
+
 # distccd
 
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
@@ -41,7 +43,7 @@ pushd memcached-1.6.22
 
 ./configure --disable-docs >/dev/null
 
-time MAKEFLAGS="CC=distcc\ gcc" make -j9
+time MAKEFLAGS="CC=distcc\ gcc" make -j4
 
 popd
 popd
