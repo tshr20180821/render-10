@@ -17,7 +17,7 @@ curl -sSN https://ppng.io/${KEYWORD}req \
 
 curl -NsSL https://ppng.io/${KEYWORD}res \
   | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
-  | socat tcp4-listen:13632,bind=127.0.0.1,fork,reuseaddr - \
+  | socat tcp4-listen:13632,bind=127.0.0.1 - \
   | stdbuf -i0 -o0 openssl aes-256-ctr -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
   | curl -m 3600 -NsSLT - https://ppng.io/${KEYWORD}req &
 
@@ -35,7 +35,7 @@ pushd /tmp
 curl -sSO https://memcached.org/files/memcached-1.6.22.tar.gz
 tar xf memcached-1.6.22.tar.gz
 
-export DISTCC_HOSTS="127.0.0.1:13632/4"
+export DISTCC_HOSTS="127.0.0.1:13632/1"
 export DISTCC_POTENTIAL_HOSTS="${DISTCC_HOSTS}"
 export DISTCC_FALLBACK=0
 
