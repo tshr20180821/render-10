@@ -58,8 +58,6 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   vim \
   xinetd &
 
-echo "root:rootpassword" | chpasswd
-
 # ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 export SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 1 | head -n 1)$(tr -dc 'a-z0-9' </dev/urandom | fold -w 15 | head -n 1)
 export SSH_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
@@ -68,6 +66,7 @@ export SSH_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
 mkdir /var/run/sshd
 # echo "root:${ROOT_PASSWORD}" | chpasswd
+# echo "root:rootpassword" | chpasswd
 
 export NOTVISIBLE='in users profile'
 echo 'export VISIBLE=now' >> /etc/profile
@@ -130,11 +129,11 @@ ls -lang /etc/dropbear/
 # /usr/sbin/dropbear -Eswp 127.0.0.1:8022 -p 127.0.0.1:9022 -p 127.0.0.1:10022
 /usr/sbin/dropbear -Eswp 127.0.0.1:8022
 
-# curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
-# ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
+curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
+./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
 
-# curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0/piping-server-x86_64-unknown-linux-musl.tar.gz | tar xzf -
-# ./piping-server-x86_64-unknown-linux-musl/piping-server --host=127.0.0.1 --http-port=9080 &
+curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0/piping-server-x86_64-unknown-linux-musl.tar.gz | tar xzf -
+./piping-server-x86_64-unknown-linux-musl/piping-server --host=127.0.0.1 --http-port=9080 &
 
 sleep 3s
 
