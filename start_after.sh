@@ -41,14 +41,10 @@ chmod 666 ${DISTCCD_LOG_FILE}
 
 if [ ! -z "${PIPING_SERVER}" ]; then
   # MARK 02
-  curl -sS ${PIPING_SERVER}/help &
-fi
-if [ ! -z "${PIPING_SERVER_SPARE}" ]; then
-  # MARK 03
-  curl -sS ${PIPING_SERVER_SPARE}/help &
+  curl -sSI ${PIPING_SERVER} ${PIPING_SERVER_SPARE} &
 fi
 
-# MARK 04
+# MARK 03
 DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   dropbear \
   expect \
@@ -86,7 +82,7 @@ chmod 700 /home/${SSH_USER}/.ssh
 
 ln -sfT /dev/stdout /var/log/telnetd.log
 
-# MARK 01 02 03 04
+# MARK 01 02 03
 wait
 
 # /usr/sbin/telnetd --help
@@ -178,7 +174,7 @@ for i in {1..2}; do \
   for j in {1..10}; do \
     sleep 60s \
      && echo "${i} ${j}" \
-     && curl -sS ${PIPING_SERVER}/help ${PIPING_SERVER_SPARE}/help  >/dev/null 2>&1; \
+     && curl -sSI ${PIPING_SERVER} ${PIPING_SERVER_SPARE} >/dev/null 2>&1; \
   done \
    && ss -anpt \
    && ps aux \
