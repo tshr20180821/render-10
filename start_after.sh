@@ -6,14 +6,16 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
 # apt
 
+DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
+  aria2 \
+  >/dev/null &
+
 curl -sSLo /usr/local/sbin/apt-fast https://raw.githubusercontent.com/ilikenwf/apt-fast/master/apt-fast
 chmod +x /usr/local/sbin/apt-fast
 
 echo "MIRRORS=('http://deb.debian.org/debian','http://ftp.debian.org/debian,http://mirror.coganng.com/debian/,http://mirror.sg.gs/debian/,http://ossmirror.mycloud.services/debian/,http://ftp.nara.wide.ad.jp/debian/,http://ftp.kddilabs.jp/pub/debian/,http://ftp.riken.jp/Linux/debian/debian/')" >/etc/apt-fast.conf
 
-DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
-  aria2 \
-  >/dev/null
+wait
 
 DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   build-essential \
