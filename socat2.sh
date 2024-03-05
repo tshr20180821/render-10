@@ -43,4 +43,6 @@ expect -c "
 set timeout 5
 spawn ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p ${TARGET_PORT} 127.0.0.1 -i /var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}
 interact
+expect \"$\"
+send \"ssh -fL 13632:127.0.0.1:3632 127.0.0.1 \n\"
 "
