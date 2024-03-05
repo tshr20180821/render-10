@@ -37,4 +37,10 @@ curl ${CURL_OPT} -sSN ${PIPING_SERVER}/${KEYWORD}req \
   | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
   | socat - tcp4:127.0.0.1:${TARGET_PORT} \
   | stdbuf -i0 -o0 openssl aes-256-ctr -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
-  | curl ${CURL_OPT} -m 300 -sSNT - ${PIPING_SERVER}/${KEYWORD}res
+  | curl ${CURL_OPT} -m 300 -sSNT - ${PIPING_SERVER}/${KEYWORD}res &
+
+expect -c "
+set timeout 5
+spawn ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l ${SSH_USER} -p ${TARGET_PORT} 127.0.0.1 -i /var/www/html/auth/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER}
+interact
+"

@@ -150,7 +150,7 @@ chmod +x ./*.sh
 
 sleep 5s && TARGET_PORT=8022 ./socat2.sh &
 
-sleep 10s && TARGET_PORT=23 ./socat3.sh &
+# sleep 10s && TARGET_PORT=23 ./socat3.sh &
 
 # sleep 10s && TARGET_PORT=10022 ./piping-tunnel.sh &
 
