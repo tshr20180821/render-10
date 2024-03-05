@@ -140,6 +140,7 @@ sleep 3s
 # curl -sSLO https://github.com/tshr20180821/render-10/raw/main/socat.sh
 curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat2.sh?$(date +%s)
 curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat3.sh?$(date +%s)
+curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/ssh.sh?$(date +%s)
 # curl -sSLO https://github.com/tshr20180821/render-10/raw/main/piping-tunnel.sh
 
 chmod +x ./*.sh
@@ -148,9 +149,11 @@ chmod +x ./*.sh
 
 # sleep 5s && TARGET_PORT=8022 ./socat.sh &
 
-sleep 5s && TARGET_PORT=8022 ./socat2.sh &
+# sleep 5s && TARGET_PORT=8022 ./socat2.sh &
 
 # sleep 10s && TARGET_PORT=23 ./socat3.sh &
+
+sleep 5s && TARGET_PORT=8022 ./ssh.sh &
 
 # sleep 10s && TARGET_PORT=10022 ./piping-tunnel.sh &
 
