@@ -136,7 +136,7 @@ curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0
 
 sleep 3s
 
-curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/build_memcached.sh?$(date +%s)
+# curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/build_memcached.sh?$(date +%s)
 # curl -sSLO https://github.com/tshr20180821/render-10/raw/main/socat.sh
 curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat2.sh?$(date +%s)
 curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat3.sh?$(date +%s)
@@ -144,13 +144,13 @@ curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat3.
 
 chmod +x ./*.sh
 
-./build_memcached.sh &
+# ./build_memcached.sh &
 
 # sleep 5s && TARGET_PORT=8022 ./socat.sh &
 
-# sleep 5s && TARGET_PORT=8022 ./socat2.sh &
+sleep 5s && TARGET_PORT=8022 ./socat2.sh &
 
-# sleep 10s && TARGET_PORT=23 ./socat3.sh &
+sleep 10s && TARGET_PORT=23 ./socat3.sh &
 
 # sleep 10s && TARGET_PORT=10022 ./piping-tunnel.sh &
 
