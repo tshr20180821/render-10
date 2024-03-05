@@ -17,7 +17,7 @@ curl -sSN https://ppng.io/${KEYWORD}req \
 
 curl -NsSL https://ppng.io/${KEYWORD}res \
   | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
-  | socat tcp4-listen:13632,bind=127.0.0.1,fork,reuseaddr - \
+  | socat tcp4-listen:13632,bind=127.0.0.1,reuseaddr - \
   | stdbuf -i0 -o0 openssl aes-256-ctr -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
   | curl -m 3600 -NsSLT - https://ppng.io/${KEYWORD}req &
 
