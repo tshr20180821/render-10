@@ -31,12 +31,10 @@ ssh --help
 
 cat /etc/ssh/ssh_config
 
-while true; do \
   ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
     -o ServerAliveInterval=60 -o ServerAliveCountMax=60 \
     -i /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} \
-    -4nNL 13632:127.0.0.1:3632 ${SSH_USER}@127.0.0.1:9022; \
-done &
+    -4nNL 13632:127.0.0.1:3632 ${SSH_USER}@127.0.0.1:9022
 
 # memcached
 
