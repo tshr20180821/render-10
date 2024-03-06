@@ -173,6 +173,7 @@ for i in {1..2}; do \
   for j in {1..10}; do \
     sleep 60s \
      && echo "${i} ${j}" \
+     && ps aux \
      && curl -sSI ${PIPING_SERVER} ${PIPING_SERVER_SPARE} >/dev/null 2>&1; \
   done \
    && ss -anpt \
