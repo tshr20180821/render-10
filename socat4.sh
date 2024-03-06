@@ -4,7 +4,7 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-# PIPING_SERVER=https://ppng.io
+PIPING_SERVER=https://ppng.io
 
 PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
