@@ -16,9 +16,9 @@ curl -sSN ${PIPING_SERVER}/${KEYWORD}req \
   | curl -m 300 -sSNT - ${PIPING_SERVER}/${KEYWORD}res &
 
 curl -NsSL ${PIPING_SERVER}/${KEYWORD}res \
-  | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass \"pass:${PASSWORD}\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
+  | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
   | socat tcp4-listen:9022,bind=127.0.0.1 - \
-  | stdbuf -i0 -o0 openssl aes-256-ctr -pass \"pass:${PASSWORD}\" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
+  | stdbuf -i0 -o0 openssl aes-256-ctr -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
   | curl -m 3600 -NsSLT - ${PIPING_SERVER}/${KEYWORD}req &
 
 sleep 3s
