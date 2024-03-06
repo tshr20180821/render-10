@@ -4,7 +4,7 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-# PIPING_SERVER=https://ppng.io
+PIPING_SERVER=https://ppng.io
 
 PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
@@ -58,6 +58,7 @@ tar xf memcached-1.6.22.tar.gz
 export DISTCC_HOSTS="127.0.0.1:13632/4"
 export DISTCC_POTENTIAL_HOSTS="${DISTCC_HOSTS}"
 export DISTCC_FALLBACK=0
+export DISTCC_IO_TIMEOUT=600
 
 pushd memcached-1.6.22
 
