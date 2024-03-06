@@ -4,11 +4,12 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-PIPING_SERVER=https://ppng.io
+# PIPING_SERVER=https://ppng.io
 
 PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 
+# distcc server
 while true; do \
   curl -sSN ${PIPING_SERVER}/${KEYWORD}req \
     | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
@@ -17,6 +18,7 @@ while true; do \
     | curl -m 3600 -sSNT - ${PIPING_SERVER}/${KEYWORD}res; \
 done &
 
+# distcc client
 while true; do \
   curl -NsSL ${PIPING_SERVER}/${KEYWORD}res \
     | stdbuf -i0 -o0 openssl aes-256-ctr -d -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1000 -md sha256 \
