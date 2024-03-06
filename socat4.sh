@@ -29,6 +29,8 @@ sleep 3s
 
 ssh --help
 
+cat /etc/ssh/ssh_config
+
   ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
     -o ServerAliveInterval=60 -o ServerAliveCountMax=60 \
     -i /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} \
