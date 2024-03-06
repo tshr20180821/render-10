@@ -126,7 +126,7 @@ dropbear --help
 dropbearkey -t dss -f /etc/dropbear/dropbear_dss_host_key
 ls -lang /etc/dropbear/
 # /usr/sbin/dropbear -Eswp 127.0.0.1:8022 -p 127.0.0.1:9022 -p 127.0.0.1:10022
-/usr/sbin/dropbear -Eswp 127.0.0.1:8022 -I 3600
+/usr/sbin/dropbear -Eswp 127.0.0.1:8022
 
 curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &

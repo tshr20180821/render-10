@@ -23,7 +23,10 @@ curl -NsSL ${PIPING_SERVER}/${KEYWORD}res \
 
 sleep 3s
 
+ssh --help
+
 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+  -o ServerAliveInterval=60 -o ServerAliveCountMax=60 \
   -p 9022 \
   -i /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} \
   -4fNL 13632:127.0.0.1:3632 ${SSH_USER}@127.0.0.1
