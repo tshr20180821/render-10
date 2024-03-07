@@ -135,6 +135,12 @@ ls -lang /etc/dropbear/
 curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0/piping-server-x86_64-unknown-linux-musl.tar.gz | tar xzf -
 ./piping-server-x86_64-unknown-linux-musl/piping-server --host=127.0.0.1 --http-port=9080 &
 
+TEST_STRING=$(echo ${RENDER_EXTERNAL_HOSTNAME} | base64)
+TEST_STRING=$(echo ${TEST_STRING} | sed 's/+//')
+TEST_STRING=$(echo ${TEST_STRING} | sed 's/\///')
+TEST_STRING=$(echo ${TEST_STRING} | sed 's/=//')
+echo ${TEST_STRING}
+
 sleep 3s
 
 # curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/build_memcached.sh?$(date +%s)
@@ -155,13 +161,13 @@ chmod +x ./*.sh
 
 # sleep 10s && TARGET_PORT=23 ./socat3.sh &
 
-sleep 5s && TARGET_PORT=8022 ./socat4.sh &
+# sleep 5s && TARGET_PORT=8022 ./socat4.sh &
 
 # sleep 5s && TARGET_PORT=8022 ./ssh.sh &
 
 # sleep 10s && TARGET_PORT=10022 ./piping-tunnel.sh &
 
-sleep 15s && ss -anpt && ps aux &
+# sleep 15s && ss -anpt && ps aux &
 
 # 72 : 12h
 # for i in {1..72}; do \
