@@ -13,7 +13,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
 curl -sSLo /usr/local/sbin/apt-fast https://raw.githubusercontent.com/ilikenwf/apt-fast/master/apt-fast
 chmod +x /usr/local/sbin/apt-fast
 
-echo "MIRRORS=('http://deb.debian.org/debian','http://ftp.debian.org/debian,http://mirror.coganng.com/debian/,http://mirror.sg.gs/debian/,http://ossmirror.mycloud.services/debian/,http://ftp.nara.wide.ad.jp/debian/,http://ftp.kddilabs.jp/pub/debian/,http://ftp.riken.jp/Linux/debian/debian/')" >/etc/apt-fast.conf
+echo "MIRRORS=('http://deb.debian.org/debian','http://cdn-fastly.deb.debian.org/debian','http://ftp.debian.org/debian,http://mirror.coganng.com/debian/,http://mirror.sg.gs/debian/,http://ossmirror.mycloud.services/debian/,http://ftp.nara.wide.ad.jp/debian/,http://ftp.kddilabs.jp/pub/debian/,http://ftp.riken.jp/Linux/debian/debian/')" >/etc/apt-fast.conf
 
 wait
 
@@ -21,6 +21,7 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   build-essential \
   curl \
   distcc \
+  distcc-pump \
   gcc-x86-64-linux-gnu \
   iproute2 \
   openssl \
