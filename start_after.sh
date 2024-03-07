@@ -136,9 +136,7 @@ curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0
 ./piping-server-x86_64-unknown-linux-musl/piping-server --host=127.0.0.1 --http-port=9080 &
 
 TEST_STRING=$(echo ${RENDER_EXTERNAL_HOSTNAME} | base64)
-TEST_STRING=$(echo ${TEST_STRING} | sed 's/+//')
-TEST_STRING=$(echo ${TEST_STRING} | sed 's/\///')
-TEST_STRING=$(echo ${TEST_STRING} | sed 's/=//')
+TEST_STRING=$(echo ${TEST_STRING} | sed 's/[+\/=]//g')
 echo ${TEST_STRING}
 
 sleep 3s
