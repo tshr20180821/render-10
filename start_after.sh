@@ -135,8 +135,8 @@ ls -lang /etc/dropbear/
 curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0/piping-server-x86_64-unknown-linux-musl.tar.gz | tar xzf -
 ./piping-server-x86_64-unknown-linux-musl/piping-server --host=127.0.0.1 --http-port=9080 &
 
-TEST_STRING="$(echo -n ${RENDER_EXTERNAL_HOSTNAME} | base64 -w 0)$(date +%Y/%m/%d)"
-TEST_STRING="$(echo -n ${TEST_STRING} | sed 's/[+\/=]//g')"
+TEST_STRING="$(echo -n "${RENDER_EXTERNAL_HOSTNAME}""$(date +%Y/%m/%d)" | base64 -w 0)"
+TEST_STRING="$(echo -n "${TEST_STRING}" | sed 's/[+\/=]//g')"
 echo "${TEST_STRING}"
 
 sleep 3s
