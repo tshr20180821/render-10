@@ -5,25 +5,24 @@ set -x
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
 # PIPING_SERVER=https://ppng.io
-PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping_rust
-CURL_OPT="-u ${BASIC_USER}:${BASIC_PASSWORD}"
+CURL_OPT="-m 3600 -sSN"
 
 PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 
 # distcc server
-curl ${CURL_OPT} -m 3600 -sSN ${PIPING_SERVER}/${KEYWORD}req \
+curl ${CURL_OPT} ${PIPING_SERVER}/${KEYWORD}req \
   | stdbuf -i0 -o0 openssl aes-128-ctr -d -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1 -md sha256 \
   | socat - tcp4:127.0.0.1:${TARGET_PORT} \
   | stdbuf -i0 -o0 openssl aes-128-ctr -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1 -md sha256 \
-  | curl ${CURL_OPT} -m 3600 -sSNT - ${PIPING_SERVER}/${KEYWORD}res &
+  | curl ${CURL_OPT} -T - ${PIPING_SERVER}/${KEYWORD}res &
 
 # distcc client
-curl ${CURL_OPT} -m 3600 -NsSL ${PIPING_SERVER}/${KEYWORD}res \
+curl ${CURL_OPT} ${PIPING_SERVER}/${KEYWORD}res \
   | stdbuf -i0 -o0 openssl aes-128-ctr -d -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1 -md sha256 \
   | socat tcp4-listen:9022,bind=127.0.0.1 - \
   | stdbuf -i0 -o0 openssl aes-128-ctr -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1 -md sha256 \
-  | curl ${CURL_OPT} -m 3600 -NsSLT - ${PIPING_SERVER}/${KEYWORD}req &
+  | curl ${CURL_OPT} -T - ${PIPING_SERVER}/${KEYWORD}req &
 
 sleep 3s
 
