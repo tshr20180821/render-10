@@ -12,12 +12,16 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 
 # distcc server
 curl ${CURL_OPT} ${PIPING_SERVER}/${KEYWORD}req \
+  | stdbuf -i0 -o0 base64 -w0 -d \
   | socat - tcp4:127.0.0.1:${TARGET_PORT} \
+  | stdbuf -i0 -o0 base64 -w0 \
   | curl ${CURL_OPT} -T - ${PIPING_SERVER}/${KEYWORD}res &
 
 # distcc client
 curl ${CURL_OPT} ${PIPING_SERVER}/${KEYWORD}res \
-  | nc 127.0.0.1 9022 \
+  | stdbuf -i0 -o0 base64 -w0 -d \
+  | socat tcp4-listen:9022,bind=127.0.0.1 - \
+  | stdbuf -i0 -o0 base64 -w0 \
   | curl ${CURL_OPT} -T - ${PIPING_SERVER}/${KEYWORD}req &
 
 sleep 3s
