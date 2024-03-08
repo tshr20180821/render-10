@@ -6,6 +6,8 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
 # PIPING_SERVER=https://ppng.io
 CURL_OPT="-m 3600 -sSN"
+PIPING_SERVER=https://${RENDER_EXTERNAL_HOSTNAME}/piping
+CURL_OPT="-u ${BASIC_USER}:${BASIC_PASSWORD} ${CURL_OPT}"
 
 PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
