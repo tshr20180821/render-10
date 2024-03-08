@@ -20,7 +20,7 @@ curl ${CURL_OPT} ${PIPING_SERVER}/${KEYWORD}req \
 # distcc client
 curl ${CURL_OPT} ${PIPING_SERVER}/${KEYWORD}res \
   | stdbuf -i0 -o0 openssl aes-128-ctr -d -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1 -md md5 \
-  | socat tcp4-listen:9022,bind=127.0.0.1 - \
+  | socat nc 127.0.0.1 9022 \
   | stdbuf -i0 -o0 openssl aes-128-ctr -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1 -md md5 \
   | curl ${CURL_OPT} -T - ${PIPING_SERVER}/${KEYWORD}req &
 
