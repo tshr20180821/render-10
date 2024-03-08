@@ -29,6 +29,8 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
 
 # distccd
 
+distcc-pump --help
+
 # MARK 01
 curl -sSLo /var/www/html/auth/distccd.php https://github.com/tshr20180821/render-10/raw/main/distccd.php &
 
@@ -132,8 +134,8 @@ ls -lang /etc/dropbear/
 # curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 # ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
 
-curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0/piping-server-x86_64-unknown-linux-musl.tar.gz | tar xzf -
-./piping-server-x86_64-unknown-linux-musl/piping-server --host=127.0.0.1 --http-port=9080 &
+# curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0/piping-server-x86_64-unknown-linux-musl.tar.gz | tar xzf -
+# ./piping-server-x86_64-unknown-linux-musl/piping-server --host=127.0.0.1 --http-port=9080 &
 
 TEST_STRING="$(echo -n "${RENDER_EXTERNAL_HOSTNAME}""$(date +%Y/%m/%d)" | base64 -w 0)"
 TEST_STRING="$(echo -n "${TEST_STRING}" | sed 's/[+\/=]//g')"
