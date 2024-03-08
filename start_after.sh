@@ -4,7 +4,7 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
-cat /proc/cpuinfo
+cat /etc/apache2/sites-enabled/apache.conf
 
 # apt
 
