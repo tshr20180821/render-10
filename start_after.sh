@@ -6,6 +6,8 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
 cat /etc/apache2/sites-enabled/apache.conf
 
+ls -lang /etc/apache2/sites-enabled/
+
 # apt
 
 DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
