@@ -167,7 +167,7 @@ chmod +x ./*.sh
 
 # sleep 5s && TARGET_PORT=8022 ./ssh.sh &
 
-sleep 5s && TARGET_PORT=10022 ./piping-tunnel.sh &
+sleep 5s && TARGET_PORT=8022 ./piping-tunnel.sh &
 
 # sleep 15s && ss -anpt && ps aux &
 
