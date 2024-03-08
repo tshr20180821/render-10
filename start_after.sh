@@ -23,7 +23,6 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   build-essential \
   curl \
   distcc \
-  distcc-pump \
   gcc-x86-64-linux-gnu \
   iproute2 \
   openssl \
@@ -31,10 +30,8 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
 
 # distccd
 
-distcc-pump --help
-
 # MARK 01
-curl -sSLo /var/www/html/auth/distccd.php https://github.com/tshr20180821/render-10/raw/main/distccd.php &
+# curl -sSLo /var/www/html/auth/distccd.php https://github.com/tshr20180821/render-10/raw/main/distccd.php &
 
 DISTCCD_LOG_FILE=/var/www/html/auth/distccd_log.txt
 touch ${DISTCCD_LOG_FILE}
@@ -120,7 +117,7 @@ sleep 3s
 # curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat2.sh?$(date +%s)
 # curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat3.sh?$(date +%s)
 curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat4.sh?$(date +%s)
-curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat5.sh?$(date +%s)
+# curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat5.sh?$(date +%s)
 # curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/ssh.sh?$(date +%s)
 # curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/piping-tunnel.sh?$(date +%s)
 
