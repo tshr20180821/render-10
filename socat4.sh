@@ -59,7 +59,7 @@ pushd memcached-1.6.22
 
 ./configure --disable-docs >/dev/null
 
-time HOME=/tmp MAKEFLAGS="CC=distcc-pump\ distcc\ gcc" make -j4
+time HOME=/tmp MAKEFLAGS="CC=distcc-pump\ gcc" make -j4
 
 popd
 popd
