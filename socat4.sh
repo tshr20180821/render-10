@@ -13,14 +13,14 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 # distcc server
 curl ${CURL_OPT} ${PIPING_SERVER}/${KEYWORD}req \
   | stdbuf -i0 -o0 openssl aes-128-ctr -d -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1 -md md5 \
-  | socat - tcp4:127.0.0.1:${TARGET_PORT} \
+  | nc 127.0.0.1 ${TARGET_PORT} \
   | stdbuf -i0 -o0 openssl aes-128-ctr -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1 -md md5 \
   | curl ${CURL_OPT} -T - ${PIPING_SERVER}/${KEYWORD}res &
 
 # distcc client
 curl ${CURL_OPT} ${PIPING_SERVER}/${KEYWORD}res \
   | stdbuf -i0 -o0 openssl aes-128-ctr -d -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1 -md md5 \
-  | nc 127.0.0.1 9022 \
+  | nc -lp 9022 -s 127.0.0.1 \
   | stdbuf -i0 -o0 openssl aes-128-ctr -pass "pass:${PASSWORD}" -bufsize 1 -pbkdf2 -iter 1 -md md5 \
   | curl ${CURL_OPT} -T - ${PIPING_SERVER}/${KEYWORD}req &
 

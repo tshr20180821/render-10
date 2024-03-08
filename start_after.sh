@@ -52,16 +52,10 @@ fi
 # MARK 03
 DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   dropbear \
-  expect \
   jq \
-  less \
   libpam-systemd \
   netcat-openbsd \
-  openssh-server \
-  sudo \
-  telnetd \
-  vim \
-  xinetd &
+  openssh-server &
 
 # ROOT_PASSWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 export SSH_USER=$(tr -dc 'a-z' </dev/urandom | fold -w 1 | head -n 1)$(tr -dc 'a-z0-9' </dev/urandom | fold -w 15 | head -n 1)
@@ -86,33 +80,8 @@ usermod -aG root ${SSH_USER}
 mkdir -p /home/${SSH_USER}/.ssh
 chmod 700 /home/${SSH_USER}/.ssh
 
-ln -sfT /dev/stdout /var/log/telnetd.log
-
 # MARK 01 02 03
 wait
-
-# /usr/sbin/telnetd --help
-
-cat << EOF >/etc/xinetd.d/telnet
-service telnet
-{
-  flags           = REUSE
-  socket_type     = stream
-  wait            = no
-  user            = root
-  server          = /usr/sbin/telnetd
-  log_on_success  = HOST PID USERID
-  log_on_failure  = HOST USERID
-  disable         = no
-  bind            = 127.0.0.1
-  only_from       = 127.0.0.1
-  log_type        = FILE /var/log/telnetd.log
-}
-EOF
-
-cat /etc/xinetd.d/telnet
-
-# /etc/init.d/xinetd restart
 
 ssh-keygen -f /home/${SSH_USER}/.ssh/${RENDER_EXTERNAL_HOSTNAME}-${SSH_USER} -t rsa -N ""
 
