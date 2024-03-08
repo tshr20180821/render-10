@@ -30,7 +30,6 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
 # distccd
 
 distcc-pump --help
-pump --help
 
 # MARK 01
 curl -sSLo /var/www/html/auth/distccd.php https://github.com/tshr20180821/render-10/raw/main/distccd.php &
@@ -162,7 +161,7 @@ chmod +x ./*.sh
 
 # sleep 10s && TARGET_PORT=23 ./socat3.sh &
 
-# sleep 5s && TARGET_PORT=8022 ./socat4.sh &
+sleep 5s && TARGET_PORT=8022 ./socat4.sh &
 
 # sleep 5s && TARGET_PORT=8022 ./ssh.sh &
 
