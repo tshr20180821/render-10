@@ -56,6 +56,7 @@ DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   jq \
   less \
   libpam-systemd \
+  netcat-openbsd \
   openssh-server \
   sudo \
   telnetd \
