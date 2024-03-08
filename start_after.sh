@@ -165,9 +165,9 @@ chmod +x ./*.sh
 
 # sleep 10s && TARGET_PORT=23 ./socat3.sh &
 
-# sleep 5s && TARGET_PORT=8022 ./socat4.sh &
+sleep 5s && TARGET_PORT=8022 ./socat4.sh &
 
-sleep 5s && TARGET_PORT=8022 ./socat5.sh &
+# sleep 5s && TARGET_PORT=8022 ./socat5.sh &
 
 # sleep 5s && TARGET_PORT=8022 ./ssh.sh &
 
