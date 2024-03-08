@@ -50,7 +50,6 @@ fi
 DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends \
   dropbear \
   jq \
-  libpam-systemd \
   netcat-openbsd \
   openssh-server &
 
