@@ -16,5 +16,5 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 32 | head -n 1)
 
 # piping-tunnel server --verbose 5 --host 127.0.0.1 --port ${TARGET_PORT} --server https://ppng.io --cipher-type=openssl-aes-256-ctr --pbkdf2='{"iter":1000,"hash":"sha256"}' --symmetric --pass ${PIPING_PASSWORD} ${KEYWORD}req ${KEYWORD}res
 piping-tunnel server --host 127.0.0.1 --port ${TARGET_PORT} \
-  --symmetric --cipher-type=openssl-openpgp   --pass ${PIPING_PASSWORD} \
+  --symmetric --cipher-type=openpgp   --pass ${PIPING_PASSWORD} \
   ${KEYWORD}req ${KEYWORD}res

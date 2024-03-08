@@ -4,6 +4,8 @@ set -x
 
 export PS4='+(${BASH_SOURCE}:${LINENO}): '
 
+cat /proc/cpuinfo
+
 # apt
 
 DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
