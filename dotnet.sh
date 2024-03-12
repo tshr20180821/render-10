@@ -8,9 +8,9 @@ curl -sSLO https://packages.microsoft.com/config/debian/12/packages-microsoft-pr
 dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
 
-apt-get -qq update
+apt-fast -qq update
 
-DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends dotnet-sdk-8.0 tree
+DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends dotnet-sdk-8.0 tree
 
 dotnet --help
 
