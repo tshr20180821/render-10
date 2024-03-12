@@ -36,5 +36,6 @@ dotnet build
 
 ls -lang
 ls -lang bin/
+ls -lang bin/Debug/
 
 popd
