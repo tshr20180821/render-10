@@ -10,4 +10,4 @@ rm packages-microsoft-prod.deb
 
 apt-fast -qq update
 
-DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends dotnet-sdk-8.0
+DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends dotnet-sdk-8.0
