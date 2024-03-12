@@ -14,6 +14,10 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends dotnet
 
 dotnet --help
 
+dotnet new console -o con1
+
+pushd con1
+
 echo "namespace HelloWorld;" >Program.cs
 echo "" >>Program.cs
 echo "class Program" >>Program.cs
@@ -27,3 +31,5 @@ echo "}" >>Program.cs
 dotnet build
 
 ls -lang
+
+popd
