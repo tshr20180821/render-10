@@ -28,7 +28,7 @@ echo "class Program" >>Program.cs
 echo "{" >>Program.cs
 echo "    static void Main(string[] args)" >>Program.cs
 echo "    {" >>Program.cs
-echo "        Console.WriteLine(\"Hello\")" >>Program.cs
+echo "        Console.WriteLine(\"Hello\");" >>Program.cs
 echo "    }" >>Program.cs
 echo "}" >>Program.cs
 
