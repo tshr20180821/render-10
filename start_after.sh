@@ -121,6 +121,7 @@ curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat4.
 # curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/socat5.sh?$(date +%s)
 # curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/ssh.sh?$(date +%s)
 # curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/piping-tunnel.sh?$(date +%s)
+curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-10/main/dotnet.sh?$(date +%s)
 
 chmod +x ./*.sh
 
@@ -132,7 +133,7 @@ chmod +x ./*.sh
 
 # sleep 10s && TARGET_PORT=23 ./socat3.sh &
 
-sleep 5s && TARGET_PORT=8022 ./socat4.sh &
+# sleep 5s && TARGET_PORT=8022 ./socat4.sh &
 
 # sleep 5s && TARGET_PORT=8022 ./socat5.sh &
 
@@ -141,6 +142,8 @@ sleep 5s && TARGET_PORT=8022 ./socat4.sh &
 # sleep 5s && TARGET_PORT=8022 ./piping-tunnel.sh &
 
 # sleep 15s && ss -anpt && ps aux &
+
+./dotnet.sh
 
 # 72 : 12h
 # for i in {1..72}; do \
