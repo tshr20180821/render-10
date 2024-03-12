@@ -36,4 +36,6 @@ dotnet build
 
 tree .
 
+./bin/Debug/net8.0/con1
+
 popd
