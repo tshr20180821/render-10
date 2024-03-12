@@ -10,7 +10,7 @@ rm packages-microsoft-prod.deb
 
 apt-get -qq update
 
-DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends dotnet-sdk-8.0
+DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends dotnet-sdk-8.0 tree
 
 dotnet --help
 
@@ -34,8 +34,6 @@ echo "}" >>Program.cs
 
 dotnet build
 
-ls -lang
-ls -lang bin/
-ls -lang bin/Debug/
+tree .
 
 popd
