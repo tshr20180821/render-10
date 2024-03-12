@@ -13,3 +13,17 @@ apt-fast -qq update
 DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends dotnet-sdk-8.0
 
 dotnet --help
+
+echo "namespace HelloWorld;" >Program.cs
+echo "" >>Program.cs
+echo "class Program" >>Program.cs
+echo "{" >>Program.cs
+echo "    static void Main(string[] args)" >>Program.cs
+echo "    {" >>Program.cs
+echo "        Console.WriteLine(\"Hello\")" >>Program.cs
+echo "    }" >>Program.cs
+echo "}" >>Program.cs
+
+dotnet build
+
+ls -lnag
