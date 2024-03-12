@@ -35,5 +35,6 @@ echo "}" >>Program.cs
 dotnet build
 
 ls -lang
+ls -lang bin/
 
 popd
