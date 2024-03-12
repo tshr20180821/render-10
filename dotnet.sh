@@ -10,7 +10,7 @@ rm packages-microsoft-prod.deb
 
 apt-fast -qq update
 
-DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends dotnet-sdk-8.0 tree
+time DEBIAN_FRONTEND=noninteractive apt-fast install -y --no-install-recommends dotnet-sdk-8.0 tree
 
 dotnet --help
 
@@ -18,7 +18,7 @@ export HOME=/tmp/usr
 
 mkdir ${HOME}
 
-dotnet new console -o con1
+time dotnet new console -o con1
 
 pushd con1
 
@@ -32,7 +32,7 @@ echo "        Console.WriteLine(\"Hello\");" >>Program.cs
 echo "    }" >>Program.cs
 echo "}" >>Program.cs
 
-dotnet build
+time dotnet build
 
 tree .
 
